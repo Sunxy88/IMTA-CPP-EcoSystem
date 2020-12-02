@@ -5,13 +5,12 @@
 #ifndef CODE_V1_1_ENVIRONMENT_H
 #define CODE_V1_1_ENVIRONMENT_H
 #include "CritterInterface.h"
-#include "vector"
 using std::vector;
 
 class Environment {
 public:
     static Environment GetInstance();
-    vector<CritterInterface> CritterInterface();
+    CritterInterface * CritterInterface();
 };
 
 
