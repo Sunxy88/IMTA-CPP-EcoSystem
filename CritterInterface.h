@@ -1,7 +1,9 @@
 #include <vector>
 #include <iostream>
 
- class CritterInterface {
+#include "CritterSensorInterface.h"
+
+ class CritterInterface : public CritterSensorInterface{
 
 
  	public :
