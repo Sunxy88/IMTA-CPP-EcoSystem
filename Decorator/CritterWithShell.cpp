@@ -12,5 +12,5 @@ float CritterWithShell::CalculateCollisionResistance() const override {
 }
 
 float CritterWithShell::CalculateCamouflageCapacity() const override {
-    return this->component->CalculateCamouflageCapacity();
+    return this->component->CalculateCamouflageCapacity();  
 }
