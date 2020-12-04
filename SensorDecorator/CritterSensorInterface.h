@@ -19,7 +19,9 @@ public:
 	CritterSensorInterface();
 	virtual ~CritterSensorInterface();
 
-	virtual vector<CritterInterface> Detect() = 0;
+	virtual vector<CritterInterface> Detect(vector<CritterInterface>* critters) = 0;
+	virtual const float* GetPosition() const = 0;
+ 	virtual const float* GetSize() const = 0;
 	
 };
 

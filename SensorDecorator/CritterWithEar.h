@@ -23,7 +23,7 @@ public:
 	CritterWithEar(CritterInterface* critter, float radius, float capacity);
 	~CritterWithEar();
 
-	vector<CritterInterface> Detect() override;
+	vector<CritterInterface> Detect(vector<CritterInterface>* critters) override;
     bool IsColliding(CritterInterface* critter) override;
 	
 };

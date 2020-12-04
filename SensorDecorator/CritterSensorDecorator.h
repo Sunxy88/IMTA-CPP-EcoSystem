@@ -22,7 +22,7 @@ public:
 	CritterSensorDecorator(CritterSensorInterface *crittersensor);
 	virtual ~CritterSensorDecorator();
 
-	virtual vector<CritterInterface> Detect() = 0;
+	virtual vector<CritterInterface> Detect(vector<CritterInterface>* critters) = 0;
     virtual bool IsColliding(CritterInterface* critter) = 0;
 	
 };
