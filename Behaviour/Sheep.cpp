@@ -12,20 +12,18 @@ int * Sheep::GetColor() {
 }
 
 float * Sheep::NextMove(CritterInterface critter) {
-    vector<CritterInterface> critters = Environment::GetInstance().CritterInterface();
+    CritterInterface * critters = Environment::GetInstance().CritterInterface();
+    int number_critters = sizeof(critters) / sizeof(critters[0]);
     float average_direction[2] = {0.0, 0.0};
-    int count = 0;
 
-    vector<CritterInterface>::iterator itr;
-    for (itr = critters.begin(); itr != critters.end(); critters++) {
-        float * current_direction = *itr->GetDirection();
+    for (int i = 0; i < number_critters; i++) {
+        float * current_direction = critters[i].GetDirection();
         average_direction[0] += current_direction[0];
         average_direction[1] += current_direction[1];
-        count++;
     }
 
-    average_direction[0] /= count;
-    average_direction[1] /= count;
+    average_direction[0] /= number_critters;
+    average_direction[1] /= number_critters;
 
     return average_direction;
 }

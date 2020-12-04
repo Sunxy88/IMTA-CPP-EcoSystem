@@ -7,9 +7,6 @@
 #include "BehaviourInterface.h"
 #include "CritterInterface.h"
 
-/**
- * 对应grégaire，下一个方向是环境中每一个虫子的平均方向
- */
 class Sheep : public BehaviourInterface {
 public:
     float * NextMove(CritterInterface critter);

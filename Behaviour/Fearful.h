@@ -7,9 +7,6 @@
 #include "CritterInterface.h"
 #include "BehaviourInterface.h"
 
-/**
- * 对应peureux，当周围虫子数量过多时会向相反方向行动
- */
 class Fearful : public BehaviourInterface {
 public:
     float * NextMove(CritterInterface critter);
