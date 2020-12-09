@@ -6,18 +6,35 @@
 #include <ctime>
 #include <string.h>
 
-BaseCritter::BaseCritter(std::string name, float baseSpeed, float position[DIM], float size[DIM], /*BehaviourInterface behaviour, */bool isMultiBehaviour /*= false*/){
+BaseCritter::BaseCritter(std::string name, float baseSpeed, int maxAge, float position[DIM], float size[DIM], /*BehaviourInterface behaviour, */bool isMultiBehaviour /*= false*/){
 	std::cout << "Creating a new Critter named " << name << " at position (" << position[0] << "," << position[1] << ")." << std::endl;
 
 	this->name = name;
 	this->baseSpeed = baseSpeed;
-	memcpy(this->position, position, DIM);
-	memcpy(this->size, size, DIM);
+	this->maxAge = maxAge;
+	memcpy(this->position, position, DIM * sizeof(float));
+	memcpy(this->size, size, DIM * sizeof(float));
 	//this->behaviour = behaviour;
 	this->isMultiBehaviour = isMultiBehaviour;
 	for (int i= 0; i < DIM; i++) {
 		this->direction[i] = 0;
 	}
+
+	this->age = 0;
+	this->isDead = false;
+	std::srand(std::time(nullptr));
+}
+
+BaseCritter::BaseCritter(const BaseCritter &b){
+	//TODO : position
+	std::cout << "Copying Critter named " << b.GetName() << std::endl;
+	this->name = b.GetName() + "Jr";
+	this->baseSpeed = b.GetBaseSpeed();
+	memcpy(this->size, b.GetSize(), DIM * sizeof(float));
+	this->maxAge = b.GetMaxAge();
+	//this->behaviour = b.GetBehaviour(); //Copier au lieu de garder le même objet ?
+	this->isMultiBehaviour = b.GetMultiBehaviour();
+
 	this->age = 0;
 	this->isDead = false;
 	std::srand(std::time(nullptr));
@@ -25,6 +42,7 @@ BaseCritter::BaseCritter(std::string name, float baseSpeed, float position[DIM],
 
 BaseCritter::~BaseCritter(){
 	std::cout << "Calling BaseCritter destructor on " << this->name << std::endl;
+	//delete this->behaviour;
 }
 
 
@@ -44,6 +62,10 @@ std::vector<CritterInterface> BaseCritter::Detect(){
 	return std::vector<CritterInterface>();
 }
 
+// void BaseCritter::ChangeBehaviour(BehaviourInterface newBehaviour){
+// 	this->behaviour = newBehaviour;
+// }
+
 // void BaseCritter::Move(){
 // 	float* directionVector = this->behaviour.NextMove();
 // 	float speed = this->CalculateSpeed();
@@ -52,6 +74,11 @@ std::vector<CritterInterface> BaseCritter::Detect(){
 
 void BaseCritter::Update(){
 	//this->Move();
+	this->age++;
+	if(this->age >= this->maxAge){
+		std::cout << this->name << " is dying of old age." << std::endl;
+		this->isDead = true;
+	}
 }
 
 bool BaseCritter::IsColliding(CritterInterface &other){
@@ -78,12 +105,12 @@ bool BaseCritter::IsColliding(CritterInterface &other){
 	return radius + otherRadius >= distance;
 }
 
-void BaseCritter::Clone(){
-
+BaseCritter BaseCritter::Clone(){
+	return BaseCritter(*this);
 }
 
-void BaseCritter::AttemptSurvive(const CritterInterface &other){
-	double randNum = (double) std::rand() / RAND_MAX; //gérer l'aléatoire dans une classe Simulation ?
+void BaseCritter::AttemptSurvive(){
+	double randNum = (double) std::rand() / RAND_MAX;
 	std::cout << randNum << std::endl;
 	if(randNum < 0.2){ //A ajouter en param de simulation
 		std::cout << this-> name << " died from collision." << std::endl;
@@ -91,7 +118,7 @@ void BaseCritter::AttemptSurvive(const CritterInterface &other){
 	}
 	else{
 		std::cout << this->name << " has survived collision and bounced." << std::endl;
-		Bounce(other);
+		Bounce();
 	}
 }
 
@@ -99,17 +126,44 @@ bool BaseCritter::IsDying(){
 	return this->isDead;
 }
 
-void BaseCritter::Bounce(const CritterInterface &other){
-	const float* otherPos = other.GetPosition();
+void BaseCritter::Bounce(){
+	//The critter then goes in the opposite direction.
+	float newDir[DIM];
+	memcpy(newDir, this->direction, DIM * sizeof(float));
+	for(int i= 0; i < DIM; i++){
+		newDir[i] = - newDir[i];
+	}
+	this->MoveTowards(newDir);
 
 }
 
-const float* BaseCritter::GetPosition() const {
-	return this->position;
-}
+const float* BaseCritter::GetPosition() const {return this->position; }
 
-const float* BaseCritter::GetSize() const {
-	return this->size;
+const float* BaseCritter::GetSize() const {return this->size; }
+
+const std::string BaseCritter::GetName() const {return this->name; }
+
+const float BaseCritter::GetBaseSpeed() const {return this->baseSpeed; }
+
+const int BaseCritter::GetMaxAge() const {return this->maxAge; }
+
+const int BaseCritter::GetCurrentAge() const {return this->age; }
+
+//const BehaviourInterface BaseCritter::GetBehaviour() const {return this->behaviour; }
+
+const bool BaseCritter::GetMultiBehaviour() const {return this->isMultiBehaviour; }
+
+
+void BaseCritter::Draw(UImg & support){
+	const float HEADRATIO = 2.1;
+
+	const float orientation = atan(this->position[0] / this->position[1]) * 180 / M_PI;
+	const float maxSize = std::max(this->size[0], this->size[1]);
+	const double xt = this->position[0] + cos(orientation)*maxSize/HEADRATIO;
+	const double yt = this->position[1] - sin(orientation)*maxSize/HEADRATIO;
+
+	//support.draw_ellipse(this->position[0], this->position[1], this->size[0], this->size[1], orientation, this->behaviour.GetColor());
+	//support.draw_circle( xt, yt, maxSize/HEADRATIO, this->behaviour.GetColor());
 }
 
 void BaseCritter::MoveTowards(const float newDirection[DIM]){
