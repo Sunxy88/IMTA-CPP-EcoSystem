@@ -2,9 +2,9 @@
 #include <iostream>
 
 #include "UImg.h"
+#include "CritterSensorInterface.h"
 
- class CritterInterface {
-
+ class CritterInterface : public CritterSensorInterface{
 
  	public :
  		static const int DIM = 2;
