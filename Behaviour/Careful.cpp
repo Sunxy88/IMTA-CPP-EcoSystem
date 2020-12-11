@@ -4,6 +4,7 @@
 
 #include "Careful.h"
 #include "algorithm"
+#include "vector"
 
 int * Careful::GetColor() {
     return color;
@@ -15,9 +16,9 @@ int * Careful::GetColor() {
 // set the direction to this quadrant.
 float * Careful::NextMove(CritterInterface critter) {
     int quadrant1 = 0, quadrant2 = 0, quadrant3 = 0, quadrant4 = 0;
-    CritterInterface * critters = critter.Detect();
+    std::vector<CritterInterface> critters = critter.Detect();
     float current_position[2] = critter.GetPosition();
-    int numberOfCritters = sizeof(critters) / sizeof(critters[0]);
+    int numberOfCritters = critters.size();
 
     for (int i = 0; i < numberOfCritters; ++i) {
         float * nearby_critter = critters[i].GetPosition();
