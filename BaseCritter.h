@@ -1,17 +1,20 @@
+#ifndef _BASECRITTER_H_
+#define _BASECRITTER_H_
+
 #include <string>
 
 #include "CritterInterface.h"
 
- class BaseCritter : public CritterInterface{
+class BaseCritter : public CritterInterface{
 
  	private :
- 		std::string name;
+ 		int id;
  		float baseSpeed;
  		float position[DIM];
  		float size[DIM];
  		float direction[DIM];
  		int age;
- 		int maxAge;
+ 		int lifespan;
  		//BehaviourInterface behaviour;
  		bool isMultiBehaviour;
  		bool isDead;
@@ -20,9 +23,10 @@
  		void MoveTowards(const float newDirection[DIM]);
 
  	public :
- 		BaseCritter(std::string name, float baseSpeed, int maxAge, float position[DIM], float size[DIM], bool isMultiBehaviour = false);
+ 		BaseCritter(int id, float baseSpeed, int lifespan, float position[DIM], float direction[DIM], float size[DIM], bool isMultiBehaviour = false);
  		BaseCritter(const BaseCritter &b);
  		~BaseCritter();
+ 		friend std::ostream& operator<<(std::ostream& flot, const BaseCritter& b);
 
  		BaseCritter Clone();
  		void AttemptSurvive();
@@ -39,9 +43,9 @@
 
  		const float* GetPosition() const override;
  		const float* GetSize() const override;
- 		const std::string GetName() const override;
+ 		const int GetId() const override;
  		const float GetBaseSpeed() const override;
- 		const int GetMaxAge() const override;
+ 		const int GetLifespan() const override;
  		const int GetCurrentAge() const override;
  		//const BehaviourInterface GetBehaviour() const = 0;
  		const bool GetMultiBehaviour() const override;
@@ -49,3 +53,5 @@
  		void Draw(UImg & support) override;
 
  };
+
+ #endif

@@ -6,19 +6,17 @@
 #include <ctime>
 #include <string.h>
 
-BaseCritter::BaseCritter(std::string name, float baseSpeed, int maxAge, float position[DIM], float size[DIM], /*BehaviourInterface behaviour, */bool isMultiBehaviour /*= false*/){
-	std::cout << "Creating a new Critter named " << name << " at position (" << position[0] << "," << position[1] << ")." << std::endl;
+BaseCritter::BaseCritter(int id, float baseSpeed, int lifespan, float position[DIM], float direction[DIM], float size[DIM], /*BehaviourInterface behaviour, */bool isMultiBehaviour /*= false*/){
+	std::cout << "Creating a new Critter n°" << id << " at position (" << position[0] << "," << position[1] << ")." << std::endl;
 
-	this->name = name;
+	this->id = id;
 	this->baseSpeed = baseSpeed;
-	this->maxAge = maxAge;
+	this->lifespan = lifespan;
 	memcpy(this->position, position, DIM * sizeof(float));
+	memcpy(this->direction, direction, DIM * sizeof(float));
 	memcpy(this->size, size, DIM * sizeof(float));
 	//this->behaviour = behaviour;
 	this->isMultiBehaviour = isMultiBehaviour;
-	for (int i= 0; i < DIM; i++) {
-		this->direction[i] = 0;
-	}
 
 	this->age = 0;
 	this->isDead = false;
@@ -27,11 +25,12 @@ BaseCritter::BaseCritter(std::string name, float baseSpeed, int maxAge, float po
 
 BaseCritter::BaseCritter(const BaseCritter &b){
 	//TODO : position
-	std::cout << "Copying Critter named " << b.GetName() << std::endl;
-	this->name = b.GetName() + "Jr";
+	//A revoir
+	std::cout << "Copying " << b << std::endl;
+	this->id = b.GetId();
 	this->baseSpeed = b.GetBaseSpeed();
 	memcpy(this->size, b.GetSize(), DIM * sizeof(float));
-	this->maxAge = b.GetMaxAge();
+	this->lifespan = b.GetLifespan();
 	//this->behaviour = b.GetBehaviour(); //Copier au lieu de garder le même objet ?
 	this->isMultiBehaviour = b.GetMultiBehaviour();
 
@@ -40,11 +39,15 @@ BaseCritter::BaseCritter(const BaseCritter &b){
 	std::srand(std::time(nullptr));
 }
 
-BaseCritter::~BaseCritter(){
-	std::cout << "Calling BaseCritter destructor on " << this->name << std::endl;
-	//delete this->behaviour;
+std::ostream& operator<<(std::ostream& flot, const BaseCritter& b){
+	flot << "BaseCritter n°" << b.GetId();
+    return flot;
 }
 
+BaseCritter::~BaseCritter(){
+	std::cout << "Calling BaseCritter destructor on " << *this << std::endl;
+	//delete this->behaviour;
+}
 
 float BaseCritter::CalculateSpeed(){
 	return this->baseSpeed;
@@ -75,8 +78,8 @@ std::vector<CritterInterface> BaseCritter::Detect(){
 void BaseCritter::Update(){
 	//this->Move();
 	this->age++;
-	if(this->age >= this->maxAge){
-		std::cout << this->name << " is dying of old age." << std::endl;
+	if(this->age >= this->lifespan){
+		std::cout << this << " is dying of old age." << std::endl;
 		this->isDead = true;
 	}
 }
@@ -113,11 +116,11 @@ void BaseCritter::AttemptSurvive(){
 	double randNum = (double) std::rand() / RAND_MAX;
 	std::cout << randNum << std::endl;
 	if(randNum < 0.2){ //A ajouter en param de simulation
-		std::cout << this-> name << " died from collision." << std::endl;
+		std::cout << *this << " died from collision." << std::endl;
 		this->isDead = true;
 	}
 	else{
-		std::cout << this->name << " has survived collision and bounced." << std::endl;
+		std::cout << *this << " has survived collision and bounced." << std::endl;
 		Bounce();
 	}
 }
@@ -141,11 +144,11 @@ const float* BaseCritter::GetPosition() const {return this->position; }
 
 const float* BaseCritter::GetSize() const {return this->size; }
 
-const std::string BaseCritter::GetName() const {return this->name; }
+const int BaseCritter::GetId() const {return this->id; }
 
 const float BaseCritter::GetBaseSpeed() const {return this->baseSpeed; }
 
-const int BaseCritter::GetMaxAge() const {return this->maxAge; }
+const int BaseCritter::GetLifespan() const {return this->lifespan; }
 
 const int BaseCritter::GetCurrentAge() const {return this->age; }
 

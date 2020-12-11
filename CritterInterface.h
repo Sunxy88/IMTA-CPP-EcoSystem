@@ -1,10 +1,13 @@
+#ifndef _CRITTERINTERFACE_H_
+#define _CRITTERINTERFACE_H_
+
 #include <vector>
 #include <iostream>
 
 #include "UImg.h"
-#include "CritterSensorInterface.h"
 
- class CritterInterface : public CritterSensorInterface{
+ class CritterInterface {
+
 
  	public :
  		static const int DIM = 2;
@@ -20,9 +23,9 @@
 
  		virtual const float* GetPosition() const = 0;
  		virtual const float* GetSize() const = 0;
- 		virtual const std::string GetName() const = 0;
+ 		virtual const int GetId() const = 0;
  		virtual const float GetBaseSpeed() const = 0;
- 		virtual const int GetMaxAge() const = 0;
+ 		virtual const int GetLifespan() const = 0;
  		virtual const int GetCurrentAge() const = 0;
  		//virtual const BehaviourInterface GetBehaviour() const = 0;
  		virtual const bool GetMultiBehaviour() const = 0;
@@ -31,3 +34,5 @@
 
 
  };
+
+ #endif
