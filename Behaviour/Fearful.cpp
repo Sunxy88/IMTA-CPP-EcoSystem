@@ -3,19 +3,21 @@
 //
 
 #include "Fearful.h"
+#include "../Environment.h"
 #include "vector"
 #define FEAR_THRESHOLD 6
 
-float * Fearful::NextMove(CritterInterface critter) {
-    std::vector<CritterInterface> detected_critters = critter.Detect();
+float * Fearful::NextMove(BaseCritter* critter) {
+    std::vector<BaseCritter> detected_critters = critter->Detect(&vector<BaseCritter>());
     int number = detected_critters.size();
-    float direction[2] = critter.GetDirection();
-    float position[2] = critter.GetPosition();
+    const float* direction = critter->GetDirection();
+    const float* position = critter->GetPosition();
+    float dir[2];
     if (number > FEAR_THRESHOLD) {
-        direction[0] = position[0] * 2 - direction[0];
-        direction[1] = position[1] * 2 - direction[1];
+        dir[0] = position[0] * 2 - direction[0];
+        dir[1] = position[1] * 2 - direction[1];
     }
-    return direction;
+    return dir;
 }
 
 int * Fearful::GetColor() {

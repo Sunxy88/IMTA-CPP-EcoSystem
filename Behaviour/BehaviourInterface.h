@@ -9,8 +9,8 @@
 
 class BehaviourInterface {
 public:
-    virtual float NextMove(CritterInterface *critter) = 0;
-    virtual int GetColor() = 0;
+    virtual float* NextMove(CritterInterface *critter) = 0;
+    virtual int* GetColor() = 0;
     virtual ~BehaviourInterface() {};
 };
 

@@ -6,7 +6,7 @@
 #include "algorithm"
 #include "vector"
 
-int * Careful::GetColor() {
+int* Careful::GetColor() {
     return color;
 }
 
@@ -14,10 +14,10 @@ int * Careful::GetColor() {
 // calculate the number of critters in 4 quadrants (original point is current position)
 // choose the quadrant where there are least critters
 // set the direction to this quadrant.
-float * Careful::NextMove(CritterInterface critter) {
+float* Careful::NextMove(CritterInterface* critter) {
     int quadrant1 = 0, quadrant2 = 0, quadrant3 = 0, quadrant4 = 0;
-    std::vector<CritterInterface> critters = critter.Detect();
-    float current_position[2] = critter.GetPosition();
+    std::vector<CritterInterface> critters = critter->Detect();
+    float current_position[2] = critter->GetPosition();
     int numberOfCritters = critters.size();
 
     for (int i = 0; i < numberOfCritters; ++i) {

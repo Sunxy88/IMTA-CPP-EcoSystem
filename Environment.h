@@ -1,9 +1,10 @@
+#pragma once
 #ifndef ENVIRONMENT_H
 #define ENVIRONMENT_H_
 
 
 #include "UImg.h"
-#include "CritterInterface.h"
+#include "BaseCritter.h"
 
 #include <iostream>
 #include <vector>
@@ -18,7 +19,7 @@ private :
    static const T          white[];
 
    int                     width, height;
-   std::vector<CritterInterface>   listCritter;
+   std::vector<BaseCritter>   listCritter;
 
 public :
    Environment( int _width, int _height );
@@ -27,7 +28,8 @@ public :
    int getWidth( void ) const { return width; };
    int getHeight( void ) const { return height; };
 
-   std::vector<CritterInterface> GetCritters();
+   void addMember( const BaseCritter & b ) { listCritter.push_back(b); }
+   std::vector<BaseCritter> GetCritters();
    void Draw();
    void UpdateCritters();
    void AddCritter();

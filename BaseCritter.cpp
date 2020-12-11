@@ -6,7 +6,7 @@
 #include <ctime>
 #include <string.h>
 
-BaseCritter::BaseCritter(std::string name, float baseSpeed, int maxAge, float position[DIM], float size[DIM], /*BehaviourInterface behaviour, */bool isMultiBehaviour /*= false*/){
+BaseCritter::BaseCritter(std::string name, float baseSpeed, int maxAge, float position[DIM], float size[DIM], BehaviourInterface* behaviour, bool isMultiBehaviour /*= false*/){
 	std::cout << "Creating a new Critter named " << name << " at position (" << position[0] << "," << position[1] << ")." << std::endl;
 
 	this->name = name;
@@ -14,7 +14,7 @@ BaseCritter::BaseCritter(std::string name, float baseSpeed, int maxAge, float po
 	this->maxAge = maxAge;
 	memcpy(this->position, position, DIM * sizeof(float));
 	memcpy(this->size, size, DIM * sizeof(float));
-	//this->behaviour = behaviour;
+	this->behaviour = behaviour;
 	this->isMultiBehaviour = isMultiBehaviour;
 	for (int i= 0; i < DIM; i++) {
 		this->direction[i] = 0;
@@ -58,7 +58,7 @@ float BaseCritter::CalculateCamouflageCapacity(){
 	return 0;
 }
 
-std::vector<CritterInterface> BaseCritter::Detect(){
+std::vector<CritterInterface> BaseCritter::Detect(vector<CritterInterface>* critters){
 	return std::vector<CritterInterface>();
 }
 
@@ -67,9 +67,13 @@ std::vector<CritterInterface> BaseCritter::Detect(){
 // }
 
 void BaseCritter::Move(){
- 	float directionVector = behaviour->NextMove();
- 	const float speed = this->CalculateSpeed();
- 	this->MoveTowards(speed * directionVector);
+ 	float* directionVector = behaviour->NextMove(this);
+ 	float speed = this->CalculateSpeed();
+
+	for (int i= 0; i < DIM; i++) {
+		directionVector[i] *= speed;
+	}
+ 	this->MoveTowards(directionVector);
  }
 
 void BaseCritter::Update(){
@@ -139,6 +143,8 @@ void BaseCritter::Bounce(){
 
 const float* BaseCritter::GetPosition() const {return this->position; }
 
+const float* BaseCritter::GetDirection() const {return this->direction; }
+
 const float* BaseCritter::GetSize() const {return this->size; }
 
 const std::string BaseCritter::GetName() const {return this->name; }
@@ -162,8 +168,8 @@ void BaseCritter::Draw(UImg & support){
 	const double xt = this->position[0] + cos(orientation)*maxSize/HEADRATIO;
 	const double yt = this->position[1] - sin(orientation)*maxSize/HEADRATIO;
 
-	//support.draw_ellipse(this->position[0], this->position[1], this->size[0], this->size[1], orientation, this->behaviour.GetColor());
-	//support.draw_circle( xt, yt, maxSize/HEADRATIO, this->behaviour.GetColor());
+	support.draw_ellipse(this->position[0], this->position[1], this->size[0], this->size[1], orientation, behaviour->GetColor());
+	support.draw_circle( xt, yt, maxSize/HEADRATIO, behaviour->GetColor());
 }
 
 void BaseCritter::MoveTowards(const float newDirection[DIM]){

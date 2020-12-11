@@ -9,8 +9,8 @@
 
 class Careful : public BehaviourInterface {
 public:
-    float * NextMove(CritterInterface critter);
-    int * GetColor();
+    float*  NextMove(CritterInterface* critter);
+    int*  GetColor();
 
 private:
     int color[3];

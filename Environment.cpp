@@ -30,12 +30,12 @@ void Environment::Draw()
 {
 
    cimg_forXY( *this, x, y ) fillC( x, y, 0, white[0], white[1], white[2] );
-   for ( std::vector<CritterInterface>::iterator it = listCritter.begin() ; it != listCritter.end() ; ++it )
+   for ( std::vector<BaseCritter>::iterator it = listCritter.begin() ; it != listCritter.end() ; ++it )
    {
 
       it->Draw( *this );
 
-   } // for
+   } 
 
 }
 
@@ -43,13 +43,22 @@ void Environment::Draw()
 void Environment::UpdateCritters()
 {
 
-   for ( std::vector<CritterInterface>::iterator it = listCritter.begin() ; it != listCritter.end() ; ++it )
+   for ( std::vector<BaseCritter>::iterator it = listCritter.begin() ; it != listCritter.end() ; ++it )
    {
 
-      it->Draw( *this );
+      it->Update();
+      it->Move();
 
-   } // for
+   } 
 
+}
+
+void Environment::AddCritter(){
+    
+}
+
+std::vector<BaseCritter> Environment::GetCritters(){
+   return listCritter;
 }
 
 

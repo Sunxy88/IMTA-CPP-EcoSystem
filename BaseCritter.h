@@ -21,7 +21,7 @@
  		void MoveTowards(const float newDirection[DIM]);
 
  	public :
- 		BaseCritter(std::string name, float baseSpeed, int maxAge, float position[DIM], float size[DIM], bool isMultiBehaviour = false);
+ 		BaseCritter(std::string name, float baseSpeed, int maxAge, float position[DIM], float size[DIM],BehaviourInterface* behaviour, bool isMultiBehaviour = false);
  		BaseCritter(const BaseCritter &b);
  		~BaseCritter();
 
@@ -32,13 +32,14 @@
  		float CalculateSpeed() override;
  		float CalculateCollisionResistance() override;
  		float CalculateCamouflageCapacity() override;
- 		std::vector<CritterInterface> Detect() override;
+ 		std::vector<CritterInterface> Detect(vector<CritterInterface>* critters) override;
  		//void ChangeBehaviour(BehaviourInterface newBehaviour) override;
  		void Move() override;
  		void Update() override;
  		bool IsColliding(CritterInterface &other) override;
 
  		const float* GetPosition() const override;
+		 const float* GetDirection() const override;
  		const float* GetSize() const override;
  		const std::string GetName() const override;
  		const float GetBaseSpeed() const override;
