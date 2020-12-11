@@ -4,6 +4,7 @@
 #include <math.h>
 #include "float.h"
 #include "limits.h"
+#include "vector"
 #include "Kamikaze.h"
 
 int * Kamikaze::GetColor() {
@@ -11,15 +12,15 @@ int * Kamikaze::GetColor() {
 }
 
 float * Kamikaze::NextMove(CritterInterface critter) {
-    CritterInterface * critters = Environment::GetInstance().CritterInterface();
-    float nearest_critter[2] = critters[0]->GetPosition();
+    std::vector<CritterInterface> critters = critter.Detect();
+    float nearest_critter[2] = critters[0].GetDirection();
     float current_position[2] = critter->GetPosition();
     float distance = getDistance(current_position, nearest_critter);
     float temporary_distance;
-    int num = sizeof(critters) / sizeof(critters[0]);
+    int num = critters.size();
 
     for (int i = 1; i < num; ++i) {
-        float temporary_position = critters[i].GetPosition();
+        float * temporary_position = critters[i].GetPosition();
         temporary_distance = getDistance(current_position, temporary_position);
         if (temporary_distance > distance) {
             nearest_critter = temporary_position;

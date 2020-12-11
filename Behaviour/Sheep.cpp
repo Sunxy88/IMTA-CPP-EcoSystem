@@ -3,7 +3,6 @@
 //
 
 #include "Sheep.h"
-#include "Environment.h"
 #include "vector"
 using std::vector;
 
@@ -12,8 +11,10 @@ int * Sheep::GetColor() {
 }
 
 float * Sheep::NextMove(CritterInterface critter) {
-    CritterInterface * critters = Environment::GetInstance().CritterInterface();
-    int number_critters = sizeof(critters) / sizeof(critters[0]);
+//    CritterInterface * critters = Environment::GetInstance().CritterInterface();
+    std::vector<CritterInterface> critters = critter.Detect();
+//    int number_critters = sizeof(critters) / sizeof(critters[0]);
+    int number_critters = critters.size();
     float average_direction[2] = {0.0, 0.0};
 
     for (int i = 0; i < number_critters; i++) {

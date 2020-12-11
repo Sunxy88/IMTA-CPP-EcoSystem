@@ -7,9 +7,6 @@
 #include "BehaviourInterface.h"
 #include "CritterInterface.h"
 
-/**
- * 对应prévoyante，预估周围虫子的方向并避免碰撞
- */
 class Careful : public BehaviourInterface {
 public:
     float * NextMove(CritterInterface critter);
