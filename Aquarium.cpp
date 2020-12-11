@@ -1,6 +1,6 @@
 #include "Aquarium.h"
 
-#include "Environnement.h"
+#include "Environment.h"
 
 
 Aquarium::Aquarium( int width, int height, int _delay ) : CImgDisplay(), delay( _delay )
@@ -9,7 +9,7 @@ Aquarium::Aquarium( int width, int height, int _delay ) : CImgDisplay(), delay( 
 
    cout << "const Aquarium" << endl;
 
-   flotte = new Environnement();
+   flotte = new Environment( width, height );
    assign( *flotte, "Simulation d'ecosysteme" );
 
    move( static_cast<int>((screenWidth-width)/2), static_cast<int>((screenHeight-height)/2) );
@@ -79,10 +79,9 @@ void Aquarium::run( void )
          this->setBehavior(critter,behavior);
       }
 
-
-
       flotte->UpdateCritters();
-      Draw( *flotte );
+      flotte->Draw();
+      display( *flotte );
 
       wait( delay );
 

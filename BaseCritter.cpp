@@ -15,7 +15,7 @@ BaseCritter::BaseCritter(int id, float baseSpeed, int lifespan, float position[D
 	memcpy(this->position, position, DIM * sizeof(float));
 	memcpy(this->direction, direction, DIM * sizeof(float));
 	memcpy(this->size, size, DIM * sizeof(float));
-	//this->behaviour = behaviour;
+	this->behaviour = behaviour;
 	this->isMultiBehaviour = isMultiBehaviour;
 
 	this->age = 0;
@@ -61,7 +61,7 @@ float BaseCritter::CalculateCamouflageCapacity(){
 	return 0;
 }
 
-std::vector<CritterInterface> BaseCritter::Detect(){
+std::vector<CritterInterface> BaseCritter::Detect(vector<CritterInterface>* critters){
 	return std::vector<CritterInterface>();
 }
 
@@ -69,11 +69,15 @@ std::vector<CritterInterface> BaseCritter::Detect(){
 // 	this->behaviour = newBehaviour;
 // }
 
-// void BaseCritter::Move(){
-// 	float* directionVector = this->behaviour.NextMove();
-// 	float speed = this->CalculateSpeed();
-// 	this->MoveTowards(speed * directionVector);
-// }
+void BaseCritter::Move(){
+ 	float* directionVector = behaviour->NextMove(this);
+ 	float speed = this->CalculateSpeed();
+
+	for (int i= 0; i < DIM; i++) {
+		directionVector[i] *= speed;
+	}
+ 	this->MoveTowards(directionVector);
+ }
 
 void BaseCritter::Update(){
 	//this->Move();
@@ -108,9 +112,9 @@ bool BaseCritter::IsColliding(CritterInterface &other){
 	return radius + otherRadius >= distance;
 }
 
-BaseCritter BaseCritter::Clone(){
-	return BaseCritter(*this);
-}
+//BaseCritter BaseCritter::Clone(){
+//	return BaseCritter(*this);
+//}
 
 void BaseCritter::AttemptSurvive(){
 	double randNum = (double) std::rand() / RAND_MAX;
@@ -142,6 +146,8 @@ void BaseCritter::Bounce(){
 
 const float* BaseCritter::GetPosition() const {return this->position; }
 
+const float* BaseCritter::GetDirection() const {return this->direction; }
+
 const float* BaseCritter::GetSize() const {return this->size; }
 
 const int BaseCritter::GetId() const {return this->id; }
@@ -165,8 +171,8 @@ void BaseCritter::Draw(UImg & support){
 	const double xt = this->position[0] + cos(orientation)*maxSize/HEADRATIO;
 	const double yt = this->position[1] - sin(orientation)*maxSize/HEADRATIO;
 
-	//support.draw_ellipse(this->position[0], this->position[1], this->size[0], this->size[1], orientation, this->behaviour.GetColor());
-	//support.draw_circle( xt, yt, maxSize/HEADRATIO, this->behaviour.GetColor());
+	support.draw_ellipse(this->position[0], this->position[1], this->size[0], this->size[1], orientation, behaviour->GetColor());
+	support.draw_circle( xt, yt, maxSize/HEADRATIO, behaviour->GetColor());
 }
 
 void BaseCritter::MoveTowards(const float newDirection[DIM]){

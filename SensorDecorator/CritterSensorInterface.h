@@ -8,9 +8,10 @@
 #ifndef  CRITTERSENSORINTERFACE_H
 #define  CRITTERSENSORINTERFACE_H_
 
-#include "CritterInterface.h"
+
 
 using namespace std;
+class CritterInterface;
 
 class CritterSensorInterface {
 

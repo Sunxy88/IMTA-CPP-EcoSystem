@@ -4,6 +4,7 @@
 #include <string>
 
 #include "CritterInterface.h"
+#include "BehaviourInterface.h"
 
 class BaseCritter : public CritterInterface{
 
@@ -15,7 +16,7 @@ class BaseCritter : public CritterInterface{
  		float direction[DIM];
  		int age;
  		int lifespan;
- 		//BehaviourInterface behaviour;
+ 		BehaviourInterface* behaviour;
  		bool isMultiBehaviour;
  		bool isDead;
 
@@ -28,20 +29,21 @@ class BaseCritter : public CritterInterface{
  		~BaseCritter();
  		friend std::ostream& operator<<(std::ostream& flot, const BaseCritter& b);
 
- 		BaseCritter Clone();
+ 		BaseCritter* Clone();
  		void AttemptSurvive();
  		bool IsDying();
  		void Bounce();
  		float CalculateSpeed() override;
  		float CalculateCollisionResistance() override;
  		float CalculateCamouflageCapacity() override;
- 		std::vector<CritterInterface> Detect() override;
+ 		std::vector<CritterInterface> Detect(vector<CritterInterface>* critters) override;
  		//void ChangeBehaviour(BehaviourInterface newBehaviour) override;
- 		//void Move() override;
+ 		void Move() override;
  		void Update() override;
  		bool IsColliding(CritterInterface &other) override;
 
  		const float* GetPosition() const override;
+		 const float* GetDirection() const override;
  		const float* GetSize() const override;
  		const int GetId() const override;
  		const float GetBaseSpeed() const override;

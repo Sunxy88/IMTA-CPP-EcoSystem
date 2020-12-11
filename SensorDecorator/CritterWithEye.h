@@ -23,7 +23,7 @@ public:
 	CritterWithEye(CritterInterface* critter, float angle, float distance, float capacity);
 	~CritterWithEye();
 
-	vector<CritterInterface> Detect() override;
+	vector<CritterInterface> Detect(vector<CritterInterface>* critters) override;
     bool IsColliding(CritterInterface* critter) override;
 	
 };

@@ -30,7 +30,6 @@ vector<CritterInterface> CritterWithEar::Detect(vector<CritterInterface>* critte
                 if(IsColliding(&critters->at(i)) && capacity > critters->at(i).CalculateCamouflageCapacity()) result.push_back(critters->at(i)); 
         }
         return result;
-     
 }
 
 bool CritterWithEar::IsColliding(CritterInterface* critter){
