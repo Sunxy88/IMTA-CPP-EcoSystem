@@ -11,7 +11,7 @@ int * Kamikaze::GetColor() {
 }
 
 float * Kamikaze::NextMove(CritterInterface critter) {
-    CritterInterface * critters = Environment::GetInstance().CritterInterface();
+    CritterInterface * critters = critter.Detect();
     float nearest_critter[2] = critters[0]->GetPosition();
     float current_position[2] = critter->GetPosition();
     float distance = getDistance(current_position, nearest_critter);
@@ -19,7 +19,7 @@ float * Kamikaze::NextMove(CritterInterface critter) {
     int num = sizeof(critters) / sizeof(critters[0]);
 
     for (int i = 1; i < num; ++i) {
-        float temporary_position = critters[i].GetPosition();
+        float * temporary_position = critters[i].GetPosition();
         temporary_distance = getDistance(current_position, temporary_position);
         if (temporary_distance > distance) {
             nearest_critter = temporary_position;
