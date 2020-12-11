@@ -3,12 +3,12 @@
 class CritterWithFin : public CritterAccessoryDecorator{
 
 private:
-    float* speedBonus;
+    float speedBonus;
 
 public:
-    CritterWithFin(CritterAccessoryInterface* component_,float* speedBonus_)
+    CritterWithFin(CritterAccessoryInterface* component_,float speedBonus_);
     float CalculateSpeed();
     float CalculateCollisionResistance();
     float CalculateCamouflageCapacity();
 
-}
+};

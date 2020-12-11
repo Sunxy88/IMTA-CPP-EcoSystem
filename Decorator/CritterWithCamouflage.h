@@ -3,12 +3,12 @@
 class CritterWithCamouflage : public CritterAccessoryDecorator{
 
 private:
-    float* camouflageCapacity;
+    float camouflageCapacity;
 
 public:
-    CritterWithCamouflage(CritterAccessoryInterface* component_,float* camouflageCapacity_)
+    CritterWithCamouflage(CritterAccessoryInterface* component_,float camouflageCapacity_);
     float CalculateSpeed();
     float CalculateCollisionResistance();
     float CalculateCamouflageCapacity();
 
-}
+};

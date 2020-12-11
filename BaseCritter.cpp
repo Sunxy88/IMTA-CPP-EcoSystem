@@ -66,11 +66,11 @@ std::vector<CritterInterface> BaseCritter::Detect(){
 // 	this->behaviour = newBehaviour;
 // }
 
-// void BaseCritter::Move(){
-// 	float* directionVector = this->behaviour.NextMove();
-// 	float speed = this->CalculateSpeed();
-// 	this->MoveTowards(speed * directionVector);
-// }
+void BaseCritter::Move(){
+ 	float directionVector = behaviour->NextMove();
+ 	const float speed = this->CalculateSpeed();
+ 	this->MoveTowards(speed * directionVector);
+ }
 
 void BaseCritter::Update(){
 	//this->Move();
@@ -105,9 +105,9 @@ bool BaseCritter::IsColliding(CritterInterface &other){
 	return radius + otherRadius >= distance;
 }
 
-BaseCritter BaseCritter::Clone(){
-	return BaseCritter(*this);
-}
+//BaseCritter BaseCritter::Clone(){
+//	return BaseCritter(*this);
+//}
 
 void BaseCritter::AttemptSurvive(){
 	double randNum = (double) std::rand() / RAND_MAX;

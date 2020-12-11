@@ -1,16 +1,19 @@
+
+
+
 #include "CritterAccessoryDecorator.h"
 #include "CritterAccessoryInterface.h"
 
 CritterAccessoryDecorator::CritterAccessoryDecorator(CritterAccessoryInterface* component_ ) : component(component_){}
 
-float CritterAccessoryDecorator::CalculateSpeed() const override {
+float CritterAccessoryDecorator::CalculateSpeed(){
     return this->component->CalculateSpeed();
 }
 
-float CritterAccessoryDecorator::CalculateCollisionResistance() const override {
+float CritterAccessoryDecorator::CalculateCollisionResistance(){
     return this->component->CalculateCollisionResistance();
 }
 
-float CritterAccessoryDecorator::CalculateCamouflageCapacity() const override {
+float CritterAccessoryDecorator::CalculateCamouflageCapacity(){
     return this->component->CalculateCamouflageCapacity();
 }

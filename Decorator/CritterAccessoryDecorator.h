@@ -1,3 +1,10 @@
+
+#pragma once
+
+#ifndef  CRITTERACCESSORYDECORATOR_H
+#define  CRITTERACCESSORYDECORATOR_H_
+
+
 #include "CritterAccessoryInterface.h"
 
 class CritterAccessoryDecorator : public CritterAccessoryInterface
@@ -8,10 +15,12 @@ protected:
     CritterAccessoryInterface* component;
 
 public:
-    CritterAccesssoryDecorator(CritterAccessoryInterface* component_ ){}
+    CritterAccessoryDecorator(CritterAccessoryInterface* component_ );
     //~CritterAccessoryDecorator(){} faut il le mettre ?
-    float CalculateSpeed();
-    float CalculateCollisionResistance();
-    float CalculateCamouflageCapacity();
+    virtual float CalculateSpeed() = 0;
+    virtual float CalculateCollisionResistance() = 0 ;
+    virtual float CalculateCamouflageCapacity() = 0 ;
 
-}
+};
+
+#endif

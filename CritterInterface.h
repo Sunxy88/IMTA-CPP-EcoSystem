@@ -13,8 +13,8 @@
  		virtual float CalculateCollisionResistance() = 0;
  		virtual float CalculateCamouflageCapacity() = 0;
  		virtual std::vector<CritterInterface> Detect() = 0;
- 		//virtual void ChangeBehaviour(BehaviourInterface newBehaviour) = 0;
- 		//virtual void Move() = 0;
+ 		virtual void ChangeBehaviour(BehaviourInterface newBehaviour) = 0;
+ 		virtual void Move() = 0;
  		virtual void Update() = 0;
  		virtual bool IsColliding(CritterInterface &other) = 0;
 

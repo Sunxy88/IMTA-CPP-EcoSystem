@@ -1,6 +1,7 @@
 #include <string>
 
 #include "CritterInterface.h"
+#include "BehaviourInterface.h"
 
  class BaseCritter : public CritterInterface{
 
@@ -12,7 +13,7 @@
  		float direction[DIM];
  		int age;
  		int maxAge;
- 		//BehaviourInterface behaviour;
+ 		BehaviourInterface* behaviour;
  		bool isMultiBehaviour;
  		bool isDead;
 
@@ -24,7 +25,7 @@
  		BaseCritter(const BaseCritter &b);
  		~BaseCritter();
 
- 		BaseCritter Clone();
+ 		BaseCritter* Clone();
  		void AttemptSurvive();
  		bool IsDying();
  		void Bounce();
@@ -33,7 +34,7 @@
  		float CalculateCamouflageCapacity() override;
  		std::vector<CritterInterface> Detect() override;
  		//void ChangeBehaviour(BehaviourInterface newBehaviour) override;
- 		//void Move() override;
+ 		void Move() override;
  		void Update() override;
  		bool IsColliding(CritterInterface &other) override;
 
