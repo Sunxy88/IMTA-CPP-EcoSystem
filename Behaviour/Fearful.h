@@ -7,6 +7,7 @@
 #include "../CritterInterface.h"
 #include "BehaviourInterface.h"
 
+// A fearful critter will run to the opposite direction if there are too many critters around
 class Fearful : public BehaviourInterface {
 public:
     float* NextMove(CritterInterface* critter, std::vector<std::shared_ptr<CritterInterface>> listcritters) override;

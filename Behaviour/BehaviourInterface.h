@@ -9,7 +9,7 @@
 
 class CritterInterface;
 
-//
+// The strategy interface exploded to use.
 class BehaviourInterface {
 public:
     BehaviourInterface();

@@ -7,6 +7,7 @@
 #include "BehaviourInterface.h"
 #include "CritterInterface.h"
 
+// A sheep critter adjusts its direction to the average direction
 class Sheep : public BehaviourInterface {
 public:
     float * NextMove(CritterInterface* critter, std::vector<std::shared_ptr<CritterInterface>> listcritters) override;

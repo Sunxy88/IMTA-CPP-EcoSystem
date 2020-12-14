@@ -22,6 +22,7 @@ float* Careful::NextMove(CritterInterface* critter, std::vector<std::shared_ptr<
     std::vector<std::shared_ptr<CritterInterface>> critters = critter->Detect(listcritters);
     int numberOfCritters = critters.size();
 
+    // Calculate the number of critters in 4 quadrants.
     for (int i = 0; i < numberOfCritters; ++i) {
         const float * nearby_critter = critters[i]->GetPosition();
         float x_difference = nearby_critter[0] - current_position[0];
@@ -39,6 +40,7 @@ float* Careful::NextMove(CritterInterface* critter, std::vector<std::shared_ptr<
 
     int min_quadrant = std::min(quadrant4, std::min(quadrant3, std::min(quadrant2,quadrant1)));
     float * direction = critter->GetDirection();
+    // Go to the quadrant where there are the least critters.
     switch (min_quadrant) {
         case quadrant1 :
             direction[0] = current_position[0] + 10;

@@ -27,6 +27,7 @@ float * Kamikaze::NextMove(CritterInterface *critter, std::vector<std::shared_pt
     for (int i = 1; i < num; ++i) {
         float temporary_position[2] = {critters[i]->GetPosition()[0], critters[i]->GetPosition()[1]};
         temporary_distance = getDistance(current_position, temporary_position);
+        // Choose the nearest critter
         if (temporary_distance > distance) {
             nearest_critter[0] = temporary_position[0];
             nearest_critter[1] = temporary_position[1];
@@ -37,6 +38,7 @@ float * Kamikaze::NextMove(CritterInterface *critter, std::vector<std::shared_pt
     return nearest_critter;
 }
 
+// Calculate the distance between two coordinate.
 float Kamikaze::getDistance(float * p1, float * p2) {
     return pow(pow(p1[0] - p2[0], 2) + pow(p1[1] - p2[1], 2), 0.5);
 }

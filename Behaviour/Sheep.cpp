@@ -14,6 +14,7 @@ float * Sheep::NextMove(CritterInterface* critter, std::vector<std::shared_ptr<C
     int number_critters = listcritters.size();
     float average_direction[2] = {0.0, 0.0};
 
+    // Calculate the average of all critters' directions
     for (int i = 0; i < number_critters; i++) {
         const float * current_direction = listcritters[i]->GetDirection();
         average_direction[0] += current_direction[0];
