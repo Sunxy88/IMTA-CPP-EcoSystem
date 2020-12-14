@@ -9,6 +9,7 @@
 
 class CritterInterface;
 
+//
 class BehaviourInterface {
 public:
     BehaviourInterface();

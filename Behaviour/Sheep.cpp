@@ -10,15 +10,12 @@ int * Sheep::GetColor() {
     return color;
 }
 
-float * Sheep::NextMove(CritterInterface* critter, Environment & env) {
-//    CritterInterface * critters = Environment::GetInstance().CritterInterface();
-    std::vector<std::shared_ptr<CritterInterface>> critters = critter->Detect(env.GetCritters());
-//    int number_critters = sizeof(critters) / sizeof(critters[0]);
-    int number_critters = critters.size();
+float * Sheep::NextMove(CritterInterface* critter, std::vector<std::shared_ptr<CritterInterface>> listcritters) {
+    int number_critters = listcritters.size();
     float average_direction[2] = {0.0, 0.0};
 
     for (int i = 0; i < number_critters; i++) {
-        const float * current_direction = critters[i]->GetDirection();
+        const float * current_direction = listcritters[i]->GetDirection();
         average_direction[0] += current_direction[0];
         average_direction[1] += current_direction[1];
     }

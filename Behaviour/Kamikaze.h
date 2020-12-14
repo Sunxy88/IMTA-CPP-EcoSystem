@@ -11,7 +11,7 @@ class Kamikaze : public BehaviourInterface {
 public:
     Kamikaze();
     ~Kamikaze();
-    float * NextMove(CritterInterface *critter, std::vector<std::shared_ptr<CritterInterface>> listcritters);
+    float * NextMove(CritterInterface *critter, std::vector<std::shared_ptr<CritterInterface>> listcritters) override;
     int * GetColor();
     BehaviourInterface* clone() override;
 

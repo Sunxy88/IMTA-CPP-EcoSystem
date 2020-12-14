@@ -15,7 +15,7 @@ int * Kamikaze::GetColor() {
 }
 
 float * Kamikaze::NextMove(CritterInterface *critter, std::vector<std::shared_ptr<CritterInterface>> listcritters) {
-    std::vector<std::shared_ptr<CritterInterface>> critters = critter->Detect(critters);
+    std::vector<std::shared_ptr<CritterInterface>> critters = critter->Detect(listcritters);
     float nearest_critter[2] = {critters[0]->GetDirection()[0], critters[0]->GetDirection()[1]};
     float current_position[2] = {};
     current_position[0] = critter->GetPosition()[0];

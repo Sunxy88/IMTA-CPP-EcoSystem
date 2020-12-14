@@ -16,10 +16,10 @@ int* Careful::GetColor() {
 // calculate the number of critters in 4 quadrants (original point is current position)
 // choose the quadrant where there are least critters
 // set the direction to this quadrant.
-float* Careful::NextMove(CritterInterface* critter) {
+float* Careful::NextMove(CritterInterface* critter, std::vector<std::shared_ptr<CritterInterface>> listcritters) {
     int quadrant1 = 0, quadrant2 = 0, quadrant3 = 0, quadrant4 = 0;
-    std::vector<std::shared_ptr<CritterInterface>> critters = critter->Detect();
     const float * current_position = critter->GetPosition();
+    std::vector<std::shared_ptr<CritterInterface>> critters = critter->Detect(listcritters);
     int numberOfCritters = critters.size();
 
     for (int i = 0; i < numberOfCritters; ++i) {
