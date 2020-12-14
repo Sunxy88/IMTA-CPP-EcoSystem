@@ -5,6 +5,10 @@
 #include <cmath>
 #include <iostream>
 #include "Behaviour/Kamikaze.h"
+#include "Behaviour/Fearful.h"
+#include "Decorator/CritterWithFin.h"
+#include "Decorator/CritterAccessoryDecorator.h"
+
 int CritterFactory::count = 0;
 
 CritterFactory::CritterFactory(){
@@ -12,16 +16,20 @@ CritterFactory::CritterFactory(){
 }
 
 
-BaseCritter CritterFactory::CreateBaseCritter() const{
-	std::cout << maxSpeed << std::endl;
+CritterInterface* CritterFactory::CreateBaseCritter() const{
+	// Using simulation parameters to randomly create a critter
+
 	const float speed = RandomBoundedFloat(minSpeed, maxSpeed);
 	const float lifespan = RandomBoundedFloat(minSpeed, maxSpeed);
+
 	float position[2];
 	float size[2];
 	float direction[2];
-	for(int i= 0; i < 2; i++){
-		size[i] = RandomBoundedFloat(minSize, maxSize);
-	}
+	
+	size[0] = RandomBoundedFloat(minSize, maxSize);
+	size[1] = size[0] / 3;
+	
+	//any position within the aquarium
 	position[0] = RandomBoundedFloat(0, width);
 	position[1] = RandomBoundedFloat(0, height);
 	float angle = RandomBoundedFloat(0, 2*M_PI);
@@ -29,9 +37,16 @@ BaseCritter CritterFactory::CreateBaseCritter() const{
 	direction[1] = sin(angle);
 
 	int id = count++;
-	Kamikaze* k = new Kamikaze();
-	//std::cout << k->GetColor()[0] << std::endl;
-	return BaseCritter(id, speed, lifespan, position, direction, size, k);
+	BehaviourInterface* k;
+	if(AttemptThreshold(fearfulPerc)){
+		k = new Fearful();
+	}else{
+		k = new Kamikaze();
+	}
+
+	CritterInterface* b = new BaseCritter(id, speed, lifespan, position, direction, size, k);
+	b = new CritterWithFin(b, 10); 
+	return b;
 }
 
 
@@ -40,4 +55,12 @@ BaseCritter CritterFactory::CreateBaseCritter() const{
 const float CritterFactory::RandomBoundedFloat(const float min, const float max) const{
 	float randNum = ((float) std::rand()) / (float) RAND_MAX;
 	return min + randNum * (max - min);
+}
+
+const bool CritterFactory::AttemptThreshold(const float threshold) const{
+	return ((float) std::rand()) / (float) RAND_MAX <= threshold;
+}
+
+const int CritterFactory::GetNewId(){
+	return count++;
 }

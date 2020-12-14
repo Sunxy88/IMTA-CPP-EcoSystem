@@ -4,7 +4,8 @@
 #ifndef  CRITTERACCESSORYINTERFACE_H
 #define  CRITTERACCESSORYINTERFACE_H_
 
-class CritterAccessoryInterface
+
+class CritterAccessoryInterface : public CritterInterface
 {
 public:
     CritterAccessoryInterface();

@@ -1,8 +1,3 @@
-/*
- * ICalculator.cpp
- *
- *      Author: Sami RMILI
- */
 
 #include "CritterInterface.h"
 

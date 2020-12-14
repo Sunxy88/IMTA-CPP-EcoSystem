@@ -32,7 +32,7 @@ vector<CritterInterface> CritterWithEye::Detect(vector<CritterInterface>* critte
 }
 
 bool CritterWithEye::IsColliding(CritterInterface* critter){
-
+	
 }
 
 

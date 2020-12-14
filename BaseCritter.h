@@ -34,13 +34,13 @@ class BaseCritter : public CritterInterface{
  		void AttemptSurvive() override;
  		bool IsDying() override;
 		void setIsDying(bool dead) override;
- 		void Bounce();
+ 		void Bounce() override;
  		float CalculateSpeed() override;
  		float CalculateCollisionResistance() override;
  		float CalculateCamouflageCapacity() override;
- 		//void ChangeBehaviour(BehaviourInterface newBehaviour) override;
- 		void Move(Environment & env) override;
- 		void Update(Environment & env) override;
+ 		void ChangeBehaviour(BehaviourInterface* newBehaviour) override;
+ 		void Move(Environment & env, float speed) override;
+ 		void Update(Environment & env, float speed) override;
  		bool IsColliding(CritterInterface &other) override;
 		std::vector<std::shared_ptr<CritterInterface>> Detect(std::vector<std::shared_ptr<CritterInterface>> critters) override;
 
@@ -51,7 +51,7 @@ class BaseCritter : public CritterInterface{
  		const float GetBaseSpeed() const override;
  		const int GetLifespan() const override;
  		const int GetCurrentAge() const override;
- 		//BehaviourInterface* GetBehaviour()  override;
+ 		BehaviourInterface* GetBehaviour()  override;
  		const bool GetMultiBehaviour() const override;
 
  		void Draw(UImg & support) override;

@@ -49,7 +49,7 @@ void Environment::UpdateCritters()
    for ( std::vector<std::shared_ptr<CritterInterface>>::iterator it = listCritter.begin() ; it != listCritter.end() ; ++it )
    {
       
-      (*it)->Update(*this);
+      (*it)->Update(*this, (*it)->CalculateSpeed());
       // Check for collision
       for ( std::vector<std::shared_ptr<CritterInterface>>::iterator it2 = listCritter.begin() ; it2 != listCritter.end() ; ++it2 ){
             if(it == it2) continue;
@@ -68,8 +68,10 @@ void Environment::UpdateCritters()
 }
 
 void Environment::AddCritter(){
-   
-   listCritter.push_back(std::make_shared<BaseCritter>(std::move(this->critterFactory->CreateBaseCritter())));
+   std::shared_ptr<CritterInterface> critter;
+   critter.reset(this->critterFactory->CreateBaseCritter());
+   listCritter.push_back(critter);
+   std::cout << listCritter.size() << std::endl;
 }
 
 void Environment::RemoveDeadCritters(){

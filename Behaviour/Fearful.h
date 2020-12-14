@@ -9,8 +9,11 @@
 
 class Fearful : public BehaviourInterface {
 public:
-    float* NextMove(CritterInterface* critter, Environment & env) override;
+    Fearful();
+    ~Fearful();
+    float* NextMove(CritterInterface* critter, std::vector<std::shared_ptr<CritterInterface>> listcritters) override;
     int * GetColor();
+    BehaviourInterface* clone() override;
 
 private:
     int color[3] = {0,0,255};

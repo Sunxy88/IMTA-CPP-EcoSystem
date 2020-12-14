@@ -11,22 +11,23 @@
 class Environment;
 class BehaviourInterface;
 
-class CritterInterface {
+class CritterInterface{
 	
  	public :
 		CritterInterface();
 		virtual ~CritterInterface();
  		static const int DIM = 2;
 
+		virtual float CalculateSpeed() = 0;
+    	virtual float CalculateCollisionResistance() = 0;
+    	virtual float CalculateCamouflageCapacity() = 0;
+		virtual void Bounce() = 0;
 		virtual bool IsDying() = 0;
 		virtual void setIsDying(bool dead) = 0;
 		virtual void AttemptSurvive() = 0;
- 		virtual float CalculateSpeed() = 0;
- 		virtual float CalculateCollisionResistance() = 0;
- 		virtual float CalculateCamouflageCapacity() = 0;
- 		//virtual void ChangeBehaviour(BehaviourInterface* newBehaviour) = 0;
- 		virtual void Move(Environment & env) = 0;
- 		virtual void Update(Environment & env) = 0;
+ 		virtual void ChangeBehaviour(BehaviourInterface* newBehaviour) = 0;
+ 		virtual void Move(Environment & env, float speed) = 0;
+ 		virtual void Update(Environment & env, float speed) = 0;
  		virtual bool IsColliding(CritterInterface &other) = 0;
         virtual std::vector<std::shared_ptr<CritterInterface>> Detect(std::vector<std::shared_ptr<CritterInterface>> critters) = 0;
 	    
@@ -37,7 +38,7 @@ class CritterInterface {
  		virtual const float GetBaseSpeed() const = 0;
  		virtual const int GetLifespan() const = 0;
  		virtual const int GetCurrentAge() const = 0;
- 		//virtual BehaviourInterface* GetBehaviour()  = 0;
+ 		virtual BehaviourInterface* GetBehaviour()  = 0;
  		virtual const bool GetMultiBehaviour() const = 0;
 
  		virtual void Draw(UImg & support) = 0;
