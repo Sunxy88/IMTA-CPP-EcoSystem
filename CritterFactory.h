@@ -3,7 +3,7 @@
 
 #include "Simulation.h"
 #include "BaseCritter.h"
-
+#include "memory"
 class CritterFactory {
 
 	private :
@@ -11,12 +11,12 @@ class CritterFactory {
 
  	private :
  		const float RandomBoundedFloat(const float min, const float max) const;
+ 		const bool AttemptThreshold(const float threshold) const;
 
  	public :
  		CritterFactory();
- 		BaseCritter CreateBaseCritter() const;
+ 		CritterInterface* CreateBaseCritter() const;
  		const static int GetNewId();
-
 };
 
 #endif

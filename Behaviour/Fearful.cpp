@@ -7,8 +7,8 @@
 #include "vector"
 #define FEAR_THRESHOLD 6
 
-float * Fearful::NextMove(BaseCritter* critter) {
-    std::vector<BaseCritter> detected_critters = critter->Detect(&vector<BaseCritter>());
+float * Fearful::NextMove(CritterInterface* critter, Environment & env) {
+    std::vector<std::shared_ptr<CritterInterface>> detected_critters = critter->Detect(env.GetCritters());
     int number = detected_critters.size();
     const float* direction = critter->GetDirection();
     const float* position = critter->GetPosition();

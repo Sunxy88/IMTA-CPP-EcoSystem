@@ -4,17 +4,16 @@
 
 #ifndef CODE_V1_1_FEARFUL_H
 #define CODE_V1_1_FEARFUL_H
-#include "../BaseCritter.h"
+#include "../CritterInterface.h"
 #include "BehaviourInterface.h"
-#include "../Environment.h"
 
 class Fearful : public BehaviourInterface {
 public:
-    float * NextMove(BaseCritter* critter);
+    float* NextMove(CritterInterface* critter, Environment & env) override;
     int * GetColor();
 
 private:
-    int color[3];
+    int color[3] = {0,0,255};
 };
 
 

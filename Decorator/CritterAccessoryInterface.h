@@ -4,6 +4,7 @@
 #ifndef  CRITTERACCESSORYINTERFACE_H
 #define  CRITTERACCESSORYINTERFACE_H_
 
+
 class CritterAccessoryInterface
 {
 public:

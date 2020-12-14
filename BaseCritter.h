@@ -17,6 +17,7 @@ class BaseCritter : public CritterInterface{
  		int age;
  		int lifespan;
  		BehaviourInterface* behaviour;
+		int something;
  		bool isMultiBehaviour;
  		bool isDead;
 
@@ -24,32 +25,33 @@ class BaseCritter : public CritterInterface{
  		void MoveTowards(const float newDirection[DIM]);
 
  	public :
- 		BaseCritter(int id, float baseSpeed, int lifespan, float position[DIM], float direction[DIM], float size[DIM], bool isMultiBehaviour = false);
+ 		BaseCritter(int id, float baseSpeed, int lifespan, float position[DIM], float direction[DIM], float size[DIM], BehaviourInterface* behaviour, bool isMultiBehaviour = false);
  		BaseCritter(const BaseCritter &b);
  		~BaseCritter();
  		friend std::ostream& operator<<(std::ostream& flot, const BaseCritter& b);
 
  		BaseCritter* Clone();
- 		void AttemptSurvive();
- 		bool IsDying();
+ 		void AttemptSurvive() override;
+ 		bool IsDying() override;
+		void setIsDying(bool dead) override;
  		void Bounce();
  		float CalculateSpeed() override;
  		float CalculateCollisionResistance() override;
  		float CalculateCamouflageCapacity() override;
- 		std::vector<CritterInterface> Detect(vector<CritterInterface>* critters) override;
- 		//void ChangeBehaviour(BehaviourInterface newBehaviour) override;
- 		void Move() override;
- 		void Update() override;
+ 		void ChangeBehaviour(BehaviourInterface* newBehaviour) override;
+ 		void Move(Environment & env) override;
+ 		void Update(Environment & env) override;
  		bool IsColliding(CritterInterface &other) override;
+		std::vector<std::shared_ptr<CritterInterface>> Detect(std::vector<std::shared_ptr<CritterInterface>> critters) override;
 
  		const float* GetPosition() const override;
-		 const float* GetDirection() const override;
+		const float* GetDirection() const override;
  		const float* GetSize() const override;
  		const int GetId() const override;
  		const float GetBaseSpeed() const override;
  		const int GetLifespan() const override;
  		const int GetCurrentAge() const override;
- 		//const BehaviourInterface GetBehaviour() const = 0;
+ 		BehaviourInterface* GetBehaviour()  override;
  		const bool GetMultiBehaviour() const override;
 
  		void Draw(UImg & support) override;

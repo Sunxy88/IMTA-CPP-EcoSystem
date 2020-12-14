@@ -23,6 +23,7 @@ public:
 	virtual vector<CritterInterface> Detect(vector<CritterInterface>* critters) = 0;
 	virtual const float* GetPosition() const = 0;
  	virtual const float* GetSize() const = 0;
+	virtual void Draw(UImg & support) = 0;
 	
 };
 

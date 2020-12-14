@@ -1,7 +1,7 @@
 #include "CritterAccessoryDecorator.h"
 #include "CritterWithFin.h"
 
-CritterWithFin::CritterWithFin(CritterAccessoryInterface* component_,float speedBonus_) : CritterAccessoryDecorator(component_),speedBonus(speedBonus_){}
+CritterWithFin::CritterWithFin(CritterInterface* component_,float speedBonus_) : CritterAccessoryDecorator(component_),speedBonus(speedBonus_){}
 
 float CritterWithFin::CalculateSpeed(){
     return this->component->CalculateSpeed()* speedBonus;

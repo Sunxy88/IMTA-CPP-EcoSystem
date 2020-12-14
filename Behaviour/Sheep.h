@@ -9,11 +9,11 @@
 
 class Sheep : public BehaviourInterface {
 public:
-    float * NextMove(CritterInterface critter);
+    float * NextMove(CritterInterface* critter, Environment & env);
     int * GetColor();
 
 private:
-    int color[3];
+    int color[3] = {0,0,0};
 };
 
 
