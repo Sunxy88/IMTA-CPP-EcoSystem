@@ -1,14 +1,11 @@
-main : main.cpp Environment.o Aquarium.o BaseCritter.o Fearful.o
-	g++ -Wall -std=c++11 -o main main.cpp Aquarium.o Bestiole.o Milieu.o -I . -lX11 -lpthread
+OBJECTS = BaseCritter.o CritterFactory.o Main.o
+EXEC = game
 
-Environment.o : Environment.h Environment.cpp
-	g++ -Wall -std=c++11  -c Environment.cpp -I .
+FLAGS = -Wall
 
-Aquarium.o : Aquarium.h Aquarium.cpp
-	g++ -Wall -std=c++11  -c Aquarium.cpp -I .
+CC = g++
 
-BaseCritter.o : BaseCritter.h BaseCritter.cpp
-	g++ -Wall -std=c++11  -c BaseCritter.cpp -I .
+# Automated compiling       
+all: $(OBJECTS)
+	$(CC) $(FLAGS) -o $(EXEC) $(OBJECTS)
 
-Fearful.o : Behaviour/Fearful.h Behaviour/Fearful.cpp
-	g++ -Wall -std=c++11  -c Behaviour/Fearful.cpp -I .

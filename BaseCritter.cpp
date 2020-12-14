@@ -25,9 +25,8 @@ BaseCritter::BaseCritter(int id, float baseSpeed, int lifespan, float position[D
 
 BaseCritter::BaseCritter(const BaseCritter &b){
 	//TODO : position
-	//A revoir
 	std::cout << "Copying " << b << std::endl;
-	this->id = b.GetId();
+	this->id = CritterFactory.GetNewId();
 	this->baseSpeed = b.GetBaseSpeed();
 	memcpy(this->size, b.GetSize(), DIM * sizeof(float));
 	this->lifespan = b.GetLifespan();

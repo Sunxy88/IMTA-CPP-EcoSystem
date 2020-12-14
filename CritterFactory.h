@@ -15,6 +15,7 @@ class CritterFactory {
  	public :
  		CritterFactory();
  		BaseCritter CreateBaseCritter() const;
+ 		const static int GetNewId();
 
 };
 

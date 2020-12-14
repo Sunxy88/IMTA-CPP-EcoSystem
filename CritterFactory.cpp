@@ -38,3 +38,7 @@ const float CritterFactory::RandomBoundedFloat(const float min, const float max)
 	float randNum = ((float) std::rand()) / (float) RAND_MAX;
 	return min + randNum * (max - min);
 }
+
+const static int CritterFactory::GetNewId(){
+	return count++;
+}

@@ -4,7 +4,7 @@
 #include <string>
 
 #include "CritterInterface.h"
-#include "BehaviourInterface.h"
+#include "Behaviour/BehaviourInterface.h"
 
 class BaseCritter : public CritterInterface{
 
