@@ -7,7 +7,11 @@
 #include "Behaviour/Kamikaze.h"
 #include "Behaviour/Fearful.h"
 #include "Decorator/CritterWithFin.h"
+#include "Decorator/CritterWithShell.h"
+#include "Decorator/CritterWithCamouflage.h"
 #include "Decorator/CritterAccessoryDecorator.h"
+#include "SensorDecorator/CritterSensorDecorator.h"
+#include "SensorDecorator/CritterWithEar.h"
 
 int CritterFactory::count = 0;
 
@@ -45,7 +49,19 @@ CritterInterface* CritterFactory::CreateBaseCritter() const{
 	}
 
 	CritterInterface* b = new BaseCritter(id, speed, lifespan, position, direction, size, k);
-	b = new CritterWithFin(b, 10); 
+	if(AttemptThreshold(finChance)){
+		b = new CritterWithFin(b, 2); 
+	}
+	if(AttemptThreshold(shellChance)){
+		b = new CritterWithShell(b, 5, 5);
+	}
+	if(AttemptThreshold(camouflageChance)){
+		b = new CritterWithCamouflage(b, 0.5);
+	}
+	if(AttemptThreshold(earChance)){
+		b = new CritterWithEar(b, 20 , 0.1);
+	}
+	
 	return b;
 }
 

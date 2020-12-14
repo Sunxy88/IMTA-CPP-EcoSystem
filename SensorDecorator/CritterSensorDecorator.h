@@ -8,24 +8,20 @@
 #ifndef  CRITTERSENSORDECORATOR_H
 #define  CRITTERSENSORDECORATOR_H_
 
-#include "CritterSensorInterface.h"
-#include "ColliderInterface.h"
-#include "memory"
+
+#include "../CritterInterface.h"
 
 using namespace std;
 
 
-class CritterSensorDecorator : public CritterSensorInterface, ColliderInterface{
+class CritterSensorDecorator : public CritterInterface{
 protected:
-	CritterSensorInterface* crittersensor;
+	CritterInterface* critter;
 
 public:
-	CritterSensorDecorator(CritterSensorInterface *crittersensor);
+	CritterSensorDecorator(CritterInterface *critter);
 	virtual ~CritterSensorDecorator();
 
-	virtual std::vector<std::shared_ptr<CritterInterface>> Detect(std::vector<std::shared_ptr<CritterInterface>> critters) = 0;
-    virtual bool IsColliding(CritterInterface* critter) = 0;
-	virtual void Draw(UImg & support);
 };
 
 

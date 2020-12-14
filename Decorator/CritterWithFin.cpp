@@ -6,7 +6,7 @@ CritterWithFin::CritterWithFin(CritterInterface* component_,float speedBonus_) :
 CritterWithFin::~CritterWithFin(){component->~CritterInterface();}
 
 float CritterWithFin::CalculateSpeed(){
-    return this->component->CalculateSpeed()* speedBonus;
+    return this->component->CalculateSpeed() * speedBonus;
 }
 
 float CritterWithFin::CalculateCollisionResistance(){

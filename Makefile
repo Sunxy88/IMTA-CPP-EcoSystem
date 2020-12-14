@@ -1,5 +1,5 @@
-main : main.cpp  Behaviour/BehaviourInterface.o Behaviour/Kamikaze.o Behaviour/Fearful.o  Decorator/CritterAccessoryDecorator.o Decorator/CritterWithFin.o CritterInterface.o BaseCritter.o CritterFactory.o Environment.o Aquarium.o
-	g++ -Wall -std=c++14 -o main main.cpp   BehaviourInterface.o Kamikaze.o Fearful.o  CritterAccessoryDecorator.o CritterWithFin.o  CritterInterface.o BaseCritter.o CritterFactory.o  Environment.o Aquarium.o -I . -lX11 -lpthread
+main : main.cpp  Behaviour/BehaviourInterface.o Behaviour/Kamikaze.o Behaviour/Fearful.o  Decorator/CritterAccessoryDecorator.o Decorator/CritterWithFin.o Decorator/CritterWithCamouflage.o Decorator/CritterWithShell.o SensorDecorator/CritterSensorDecorator.o SensorDecorator/CritterWithEar.o CritterInterface.o BaseCritter.o CritterFactory.o Environment.o Aquarium.o
+	g++ -Wall -std=c++14 -o main main.cpp   BehaviourInterface.o Kamikaze.o Fearful.o  CritterAccessoryDecorator.o CritterWithFin.o CritterWithCamouflage.o CritterWithShell.o CritterSensorDecorator.o CritterWithEar.o CritterInterface.o BaseCritter.o CritterFactory.o  Environment.o Aquarium.o -I . -lX11 -lpthread
 
 CritterInterface.o : CritterInterface.h CritterInterface.cpp
 	g++ -Wall -std=c++14  -c CritterInterface.cpp -I .
@@ -31,6 +31,18 @@ Decorator/CritterAccessoryDecorator.o : Decorator/CritterAccessoryDecorator.h De
 
 Decorator/CritterWithFin.o : Decorator/CritterWithFin.h Decorator/CritterWithFin.cpp
 	g++ -Wall -std=c++14  -c Decorator/CritterWithFin.cpp -I .
+
+Decorator/CritterWithShell.o : Decorator/CritterWithShell.h Decorator/CritterWithShell.cpp
+	g++ -Wall -std=c++14  -c Decorator/CritterWithShell.cpp -I .
+
+Decorator/CritterWithCamouflage.o : Decorator/CritterWithCamouflage.h Decorator/CritterWithCamouflage.cpp
+	g++ -Wall -std=c++14  -c Decorator/CritterWithCamouflage.cpp -I .
+
+SensorDecorator/CritterSensorDecorator.o : SensorDecorator/CritterSensorDecorator.h SensorDecorator/CritterSensorDecorator.cpp
+	g++ -Wall -std=c++14  -c SensorDecorator/CritterSensorDecorator.cpp -I .
+
+SensorDecorator/CritterWithEar.o : SensorDecorator/CritterWithEar.h SensorDecorator/CritterWithEar.cpp
+	g++ -Wall -std=c++14  -c SensorDecorator/CritterWithEar.cpp -I .
 
 
 

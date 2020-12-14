@@ -55,7 +55,9 @@ void Environment::UpdateCritters()
             if(it == it2) continue;
             if((*it)->IsColliding(*(*it2).get())){
                std::cout << "Colliding" << endl;
+               if(!(*it)->IsDying())
                (*it)->AttemptSurvive();
+               if(!(*it2)->IsDying())
                (*it2)->AttemptSurvive();
 
             }
