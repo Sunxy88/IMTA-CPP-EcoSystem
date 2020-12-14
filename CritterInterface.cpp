@@ -8,6 +8,6 @@
 
 
 
-CritterInterface::CritterInterface()  {}
+CritterInterface::CritterInterface() {}
 CritterInterface::~CritterInterface() {}
 

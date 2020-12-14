@@ -6,15 +6,16 @@
 #include "limits.h"
 #include "vector"
 #include "Kamikaze.h"
-#include "../Environment.h"
+
+
 Kamikaze::Kamikaze(){}
 Kamikaze::~Kamikaze(){}
 int * Kamikaze::GetColor() {
     return color;
 }
 
-float * Kamikaze::NextMove(CritterInterface* critter, Environment & env) {
-    std::vector<std::shared_ptr<CritterInterface>> critters = critter->Detect(env.GetCritters());
+float * Kamikaze::NextMove(CritterInterface *critter, std::vector<std::shared_ptr<CritterInterface>> listcritters) {
+    std::vector<std::shared_ptr<CritterInterface>> critters = critter->Detect(critters);
     float nearest_critter[2] = {critters[0]->GetDirection()[0], critters[0]->GetDirection()[1]};
     float current_position[2] = {};
     current_position[0] = critter->GetPosition()[0];
@@ -38,4 +39,8 @@ float * Kamikaze::NextMove(CritterInterface* critter, Environment & env) {
 
 float Kamikaze::getDistance(float * p1, float * p2) {
     return pow(pow(p1[0] - p2[0], 2) + pow(p1[1] - p2[1], 2), 0.5);
+}
+
+BehaviourInterface* Kamikaze::clone(){
+    return new Kamikaze(*this);
 }

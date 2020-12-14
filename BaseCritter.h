@@ -16,7 +16,7 @@ class BaseCritter : public CritterInterface{
  		float direction[DIM];
  		int age;
  		int lifespan;
- 		//BehaviourInterface* behaviour;
+ 		BehaviourInterface* behaviour;
 		int something;
  		bool isMultiBehaviour;
  		bool isDead;
@@ -25,7 +25,7 @@ class BaseCritter : public CritterInterface{
  		void MoveTowards(const float newDirection[DIM]);
 
  	public :
- 		BaseCritter(int id, float baseSpeed, int lifespan, float position[DIM], float direction[DIM], float size[DIM], /*BehaviourInterface* behaviour,*/ bool isMultiBehaviour = false);
+ 		BaseCritter(int id, float baseSpeed, int lifespan, float position[DIM], float direction[DIM], float size[DIM], BehaviourInterface* behaviour, bool isMultiBehaviour = false);
  		BaseCritter(const BaseCritter &b);
  		~BaseCritter();
  		friend std::ostream& operator<<(std::ostream& flot, const BaseCritter& b);
@@ -51,7 +51,7 @@ class BaseCritter : public CritterInterface{
  		const float GetBaseSpeed() const override;
  		const int GetLifespan() const override;
  		const int GetCurrentAge() const override;
- 		//const BehaviourInterface GetBehaviour() const = 0;
+ 		//BehaviourInterface* GetBehaviour()  override;
  		const bool GetMultiBehaviour() const override;
 
  		void Draw(UImg & support) override;

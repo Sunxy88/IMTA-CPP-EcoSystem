@@ -1,5 +1,5 @@
-main : main.cpp    CritterInterface.o BaseCritter.o CritterFactory.o Environment.o Aquarium.o
-	g++ -Wall -std=c++14 -o main main.cpp  CritterInterface.o BaseCritter.o CritterFactory.o  Environment.o Aquarium.o -I . -lX11 -lpthread
+main : main.cpp   Behaviour/BehaviourInterface.o Behaviour/Kamikaze.o CritterInterface.o BaseCritter.o CritterFactory.o Environment.o Aquarium.o
+	g++ -Wall -std=c++14 -o main main.cpp  BehaviourInterface.o Kamikaze.o CritterInterface.o BaseCritter.o CritterFactory.o  Environment.o Aquarium.o -I . -lX11 -lpthread
 
 CritterInterface.o : CritterInterface.h CritterInterface.cpp
 	g++ -Wall -std=c++14  -c CritterInterface.cpp -I .

@@ -1,5 +1,4 @@
-#ifndef ENVIRONMENT_H
-#define ENVIRONMENT_H_
+
 #include "Environment.h"
 
 #include <cstdlib>
@@ -109,7 +108,6 @@ CritterInterface* Environment::getCritterById(int id){
    return nullptr;
 }
 
-#endif
 
 
 

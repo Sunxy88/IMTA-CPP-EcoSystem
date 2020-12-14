@@ -6,8 +6,9 @@
 #include <ctime>
 #include <string.h>
 #include "Environment.h"
+#include "Behaviour/Kamikaze.h"
 
-BaseCritter::BaseCritter(int id, float baseSpeed, int lifespan, float position[DIM], float direction[DIM], float size[DIM],/* BehaviourInterface* behaviour,*/ bool isMultiBehaviour /*= false*/){
+BaseCritter::BaseCritter(int id, float baseSpeed, int lifespan, float position[DIM], float direction[DIM], float size[DIM], BehaviourInterface* behaviour, bool isMultiBehaviour /*= false*/) : behaviour(behaviour){
 	std::cout << "Creating a new Critter n°" << id << " at position (" << position[0] << "," << position[1] << ")." << std::endl;
 	this->id = id;
 	this->baseSpeed = baseSpeed;
@@ -15,7 +16,6 @@ BaseCritter::BaseCritter(int id, float baseSpeed, int lifespan, float position[D
 	memcpy(this->position, position, DIM * sizeof(float));
 	memcpy(this->direction, direction, DIM * sizeof(float));
 	memcpy(this->size, size, DIM * sizeof(float));
-	//this->behaviour = behaviour;
 	this->isMultiBehaviour = isMultiBehaviour;
 
 	this->age = 0;
@@ -23,7 +23,7 @@ BaseCritter::BaseCritter(int id, float baseSpeed, int lifespan, float position[D
 	
 }
 
-BaseCritter::BaseCritter(const BaseCritter &b){
+BaseCritter::BaseCritter(const BaseCritter &b) : behaviour(b.behaviour->clone()){
 	//TODO : position
 	//A revoir
 	std::cout << "Copying " << b << std::endl;
@@ -33,7 +33,8 @@ BaseCritter::BaseCritter(const BaseCritter &b){
 	memcpy(this->direction, b.GetDirection(), DIM * sizeof(float));
 	memcpy(this->size, b.GetSize(), DIM * sizeof(float));
 	this->lifespan = b.GetLifespan();
-	//this->behaviour = b.GetBehaviour(); //Copier au lieu de garder le même objet ?
+	//this->behaviour = behaviour;//Copier au lieu de garder le même objet ?
+	std::cout << behaviour->GetColor()[0] << std::endl;
 	this->isMultiBehaviour = b.GetMultiBehaviour();
 
 	this->age = 0;
@@ -48,7 +49,7 @@ std::ostream& operator<<(std::ostream& flot, const BaseCritter& b){
 
 BaseCritter::~BaseCritter(){
 	std::cout << "Calling BaseCritter destructor on " << *this << std::endl;
-	//delete this->behaviour;
+	delete this->behaviour;
 }
 
 float BaseCritter::CalculateSpeed(){
@@ -169,7 +170,7 @@ const int BaseCritter::GetLifespan() const {return this->lifespan; }
 
 const int BaseCritter::GetCurrentAge() const {return this->age; }
 
-//const BehaviourInterface BaseCritter::GetBehaviour() const {return this->behaviour; }
+// BehaviourInterface* BaseCritter::GetBehaviour() {}
 
 const bool BaseCritter::GetMultiBehaviour() const {return this->isMultiBehaviour; }
 
@@ -184,10 +185,10 @@ void BaseCritter::Draw(UImg & support){
 	const double xt = this->position[0] + cos(orientation)*maxSize/HEADRATIO;
 	const double yt = this->position[1] - sin(orientation)*maxSize/HEADRATIO;
     
-	int color[3] = {0,0,150};
 	
-	support.draw_ellipse(this->position[0], this->position[1], this->size[0], this->size[1], orientation, color);
-	support.draw_circle( xt, yt, maxSize/HEADRATIO, color);
+	//std::cout << this->behaviour->GetColor()[0] << std::endl;
+	support.draw_ellipse(this->position[0], this->position[1], this->size[0], this->size[1], orientation, this->behaviour->GetColor());
+	support.draw_circle( xt, yt, maxSize/HEADRATIO, this->behaviour->GetColor());
 }
 
 void BaseCritter::MoveTowards(const float newDirection[DIM]){

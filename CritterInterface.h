@@ -5,11 +5,14 @@
 #include <iostream>
 #include "UImg.h"
 #include "memory"
+#include "Behaviour/BehaviourInterface.h"
+
 
 class Environment;
+class BehaviourInterface;
 
 class CritterInterface {
-
+	
  	public :
 		CritterInterface();
 		virtual ~CritterInterface();
@@ -34,7 +37,7 @@ class CritterInterface {
  		virtual const float GetBaseSpeed() const = 0;
  		virtual const int GetLifespan() const = 0;
  		virtual const int GetCurrentAge() const = 0;
- 		//virtual const BehaviourInterface GetBehaviour() const = 0;
+ 		//virtual BehaviourInterface* GetBehaviour()  = 0;
  		virtual const bool GetMultiBehaviour() const = 0;
 
  		virtual void Draw(UImg & support) = 0;

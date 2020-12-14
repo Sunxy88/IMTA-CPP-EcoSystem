@@ -29,7 +29,9 @@ BaseCritter CritterFactory::CreateBaseCritter() const{
 	direction[1] = sin(angle);
 
 	int id = count++;
-	return BaseCritter(id, speed, lifespan, position, direction, size);
+	Kamikaze* k = new Kamikaze();
+	//std::cout << k->GetColor()[0] << std::endl;
+	return BaseCritter(id, speed, lifespan, position, direction, size, k);
 }
 
 

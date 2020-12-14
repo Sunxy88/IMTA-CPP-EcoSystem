@@ -4,14 +4,18 @@
 
 #ifndef CODE_V1_1_BEHAVIOURINTERFACE_H
 #define CODE_V1_1_BEHAVIOURINTERFACE_H
+#include "../CritterInterface.h"
 
+
+class CritterInterface;
 
 class BehaviourInterface {
 public:
     BehaviourInterface();
     virtual ~BehaviourInterface();
-    virtual float* NextMove(CritterInterface *critter, Environment & env) = 0;
+    virtual float* NextMove(CritterInterface *critter, std::vector<std::shared_ptr<CritterInterface>> listcritters) = 0;
     virtual int* GetColor() = 0;
+    virtual BehaviourInterface* clone() = 0;
 };
 
 
