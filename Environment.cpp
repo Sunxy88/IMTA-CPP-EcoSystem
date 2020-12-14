@@ -1,3 +1,5 @@
+#ifndef ENVIRONMENT_H
+#define ENVIRONMENT_H_
 #include "Environment.h"
 
 #include <cstdlib>
@@ -10,10 +12,11 @@ const T    Environment::white[] = { (T)255, (T)255, (T)255 };
 Environment::Environment( int _width, int _height ) : UImg( _width, _height, 1, 3 ),
                                             width(_width), height(_height)
 {
-
+   std::cout << "START" << std::endl;
+   this->critterFactory = new CritterFactory();
+   std::cout << "END" << std::endl;
    cout << "const Milieu" << endl;
 
-   std::srand( time(NULL) );
 
 }
 
@@ -22,6 +25,7 @@ Environment::~Environment( void )
 {
 
    cout << "dest Milieu" << endl;
+   delete critterFactory;
 
 }
 
@@ -30,10 +34,10 @@ void Environment::Draw()
 {
 
    cimg_forXY( *this, x, y ) fillC( x, y, 0, white[0], white[1], white[2] );
-   for ( std::vector<BaseCritter>::iterator it = listCritter.begin() ; it != listCritter.end() ; ++it )
+   for ( std::vector<std::shared_ptr<CritterInterface>>::iterator it = listCritter.begin() ; it != listCritter.end() ; ++it )
    {
 
-      it->Draw( *this );
+      (*it)->Draw( *this );
 
    } 
 
@@ -43,23 +47,70 @@ void Environment::Draw()
 void Environment::UpdateCritters()
 {
 
-   for ( std::vector<BaseCritter>::iterator it = listCritter.begin() ; it != listCritter.end() ; ++it )
+   for ( std::vector<std::shared_ptr<CritterInterface>>::iterator it = listCritter.begin() ; it != listCritter.end() ; ++it )
    {
+      
+      (*it)->Update(*this);
+      // Check for collision
+      for ( std::vector<std::shared_ptr<CritterInterface>>::iterator it2 = listCritter.begin() ; it2 != listCritter.end() ; ++it2 ){
+            if(it == it2) continue;
+            if((*it)->IsColliding(*(*it2).get())){
+               std::cout << "Colliding" << endl;
+               (*it)->AttemptSurvive();
+               (*it2)->AttemptSurvive();
 
-      it->Update();
-      it->Move();
+            }
+      }
 
    } 
+
+   RemoveDeadCritters();
 
 }
 
 void Environment::AddCritter(){
-    
+   
+   listCritter.push_back(std::make_shared<BaseCritter>(std::move(this->critterFactory->CreateBaseCritter())));
 }
 
-std::vector<BaseCritter> Environment::GetCritters(){
+void Environment::RemoveDeadCritters(){
+   std::vector<std::shared_ptr<CritterInterface>>::iterator it = listCritter.begin();
+   while(it != listCritter.end()){
+      if((*it)->IsDying()){
+            listCritter.erase(it);
+      }else{
+         it++;
+      }
+   } 
+   
+}
+
+std::vector<std::shared_ptr<CritterInterface>> Environment::GetCritters(){
    return listCritter;
 }
+
+int Environment::getWidth(){
+   return width;
+}
+
+int Environment::getHeight(){
+   return height;
+}
+
+CritterInterface* Environment::getCritterById(int id){
+   std::vector<std::shared_ptr<CritterInterface>>::iterator it = listCritter.begin();
+   while(it != listCritter.end()){
+      if((*it)->GetId() == id){
+            return (*it).get();
+      }else{
+         it++;
+      }
+   } 
+   return nullptr;
+}
+
+#endif
+
 
 
 

@@ -25,7 +25,7 @@ public:
 
 	vector<CritterInterface> Detect(vector<CritterInterface>* critters) override;
     bool IsColliding(CritterInterface* critter) override;
-	
+	void Draw(UImg & support) override;
 };
 
 

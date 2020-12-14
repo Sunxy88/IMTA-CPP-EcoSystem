@@ -3,23 +3,29 @@
 
 #include <vector>
 #include <iostream>
-
 #include "UImg.h"
-#include "SensorDecorator/CritterSensorInterface.h"
+#include "memory"
 
- class CritterInterface : public CritterSensorInterface {
+class Environment;
+
+class CritterInterface {
 
  	public :
+		CritterInterface();
+		virtual ~CritterInterface();
  		static const int DIM = 2;
 
+		virtual bool IsDying() = 0;
+		virtual void setIsDying(bool dead) = 0;
+		virtual void AttemptSurvive() = 0;
  		virtual float CalculateSpeed() = 0;
  		virtual float CalculateCollisionResistance() = 0;
  		virtual float CalculateCamouflageCapacity() = 0;
  		//virtual void ChangeBehaviour(BehaviourInterface* newBehaviour) = 0;
- 		virtual void Move() = 0;
- 		virtual void Update() = 0;
+ 		virtual void Move(Environment & env) = 0;
+ 		virtual void Update(Environment & env) = 0;
  		virtual bool IsColliding(CritterInterface &other) = 0;
-
+        virtual std::vector<std::shared_ptr<CritterInterface>> Detect(std::vector<std::shared_ptr<CritterInterface>> critters) = 0;
 	    
  		virtual const float* GetPosition() const = 0;
 		virtual const float* GetDirection() const = 0;

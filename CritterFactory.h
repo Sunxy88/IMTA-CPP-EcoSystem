@@ -3,7 +3,7 @@
 
 #include "Simulation.h"
 #include "BaseCritter.h"
-
+#include "memory"
 class CritterFactory {
 
 	private :
@@ -15,7 +15,7 @@ class CritterFactory {
  	public :
  		CritterFactory();
  		BaseCritter CreateBaseCritter() const;
-
+        
 };
 
 #endif

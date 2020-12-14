@@ -4,16 +4,16 @@
 #include <ctime>
 #include <cmath>
 #include <iostream>
-
+#include "Behaviour/Kamikaze.h"
 int CritterFactory::count = 0;
 
 CritterFactory::CritterFactory(){
-	std::srand(std::time(nullptr));
-	std::rand();
+	
 }
 
 
 BaseCritter CritterFactory::CreateBaseCritter() const{
+	std::cout << maxSpeed << std::endl;
 	const float speed = RandomBoundedFloat(minSpeed, maxSpeed);
 	const float lifespan = RandomBoundedFloat(minSpeed, maxSpeed);
 	float position[2];
@@ -28,10 +28,11 @@ BaseCritter CritterFactory::CreateBaseCritter() const{
 	direction[0] = cos(angle);
 	direction[1] = sin(angle);
 
-
 	int id = count++;
 	return BaseCritter(id, speed, lifespan, position, direction, size);
 }
+
+
 
 
 const float CritterFactory::RandomBoundedFloat(const float min, const float max) const{

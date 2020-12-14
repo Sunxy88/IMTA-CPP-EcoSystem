@@ -10,6 +10,7 @@
 
 #include "CritterSensorInterface.h"
 #include "ColliderInterface.h"
+#include "memory"
 
 using namespace std;
 
@@ -22,9 +23,9 @@ public:
 	CritterSensorDecorator(CritterSensorInterface *crittersensor);
 	virtual ~CritterSensorDecorator();
 
-	virtual vector<CritterInterface> Detect(vector<CritterInterface>* critters) = 0;
+	virtual std::vector<std::shared_ptr<CritterInterface>> Detect(std::vector<std::shared_ptr<CritterInterface>> critters) = 0;
     virtual bool IsColliding(CritterInterface* critter) = 0;
-	
+	virtual void Draw(UImg & support);
 };
 
 

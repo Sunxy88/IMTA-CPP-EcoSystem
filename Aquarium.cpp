@@ -6,6 +6,8 @@
 Aquarium::Aquarium( int width, int height, int _delay ) : CImgDisplay(), delay( _delay )
 {
 
+   int         screenWidth = 1280; //screen_width();
+   int         screenHeight = 1024; //screen_height();
 
    cout << "const Aquarium" << endl;
 
@@ -33,13 +35,14 @@ void Aquarium::Birth()
 
 void Aquarium::Kill(int id)
 {
-   delete flotte->GetCritterById(id);
+   flotte->getCritterById(id)->setIsDying(true);
 }
 
-void Aquarium::SetBehavior(int id, String strategy)
+/*
+void Aquarium::SetBehavior(int id, string const &stratergy)
 {
    flotte->GetCritterById->ChangeBehaviour(strategy);
-}
+}*/
 
 
 
@@ -69,16 +72,16 @@ void Aquarium::run( void )
          this->Kill(critter);
       }
 
-      if (is_key(cimg::keyS)){
-         int critter;
-         String behavior;
-         cout << "De quelle créature voulez-vous modifier le comportement ?"<<endl;
-         cin>>critter;
-         cout << "Quel comportement voulez-vous lui attribuer ?"<<endl;
-         cin<<behavior;
-         this->setBehavior(critter,behavior);
-      }
-
+      //if (is_key(cimg::keyS)){
+      //   int critter;
+      //   String behavior;
+      //   cout << "De quelle créature voulez-vous modifier le comportement ?"<<endl;
+      //   cin>>critter;
+      //   cout << "Quel comportement voulez-vous lui attribuer ?"<<endl;
+      //   cin<<behavior;
+      //   this->setBehavior(critter,behavior);
+      //}
+      
       flotte->UpdateCritters();
       flotte->Draw();
       display( *flotte );

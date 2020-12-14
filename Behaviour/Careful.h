@@ -13,7 +13,7 @@ public:
     int*  GetColor();
 
 private:
-    int color[3];
+    int color[3] = {0,255,0};
 };
 
 

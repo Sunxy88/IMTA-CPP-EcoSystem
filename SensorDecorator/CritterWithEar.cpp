@@ -56,3 +56,9 @@ bool CritterWithEar::IsColliding(CritterInterface* critter){
 
     return distance <= radius;
 }
+
+void CritterWithEar::Draw(UImg & support){
+     int color[3] = {1,0,0};
+     support.draw_circle( crittersensor->GetPosition()[0], crittersensor->GetPosition()[1], radius, color);
+     crittersensor->Draw(support);
+}

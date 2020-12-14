@@ -5,15 +5,18 @@
 #ifndef CODE_V1_1_KAMIKAZE_H
 #define CODE_V1_1_KAMIKAZE_H
 #include "BehaviourInterface.h"
-#include "CritterInterface.h"
+
 
 class Kamikaze : public BehaviourInterface {
 public:
-    float * NextMove(CritterInterface critter);
+    Kamikaze();
+    ~Kamikaze();
+    float * NextMove(CritterInterface* critter, Environment & env);
     int * GetColor();
 
 private:
-    int color[3];
+    int color[3] = {255,0,0};
+    float getDistance(float * p1, float * p2);
 };
 
 

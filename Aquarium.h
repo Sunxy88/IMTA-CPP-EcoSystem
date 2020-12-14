@@ -2,15 +2,14 @@
 #ifndef _AQUARIUM_H_
 #define _AQUARIUM_H_
 
-
+#include "Environment.h"
 #include <iostream>
 #include <CImg.h>
-#include "Environment.h"
 using namespace std;
 using namespace cimg_library;
 
 
-class Environnement;
+class Environment;
 
 
 class Aquarium : public CImgDisplay
@@ -29,7 +28,7 @@ public :
    
    void Kill(int);
 
-   void SetBehavior(int,String);
+   /*void SetBehavior(int, string const &str1);*/
 
    Environment & getMilieu( void ) { return *flotte; }
 
