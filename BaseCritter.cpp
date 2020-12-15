@@ -75,7 +75,16 @@ void BaseCritter::ChangeBehaviour(BehaviourInterface* newBehaviour){
 	this->behaviour = newBehaviour;
 }
 
-void BaseCritter::Move(Environment & env){
+void BaseCritter::Move(Environment & env, float speed){
+	// Get direction from behaviour
+	//delete this->direction;
+	/*float* newDir = behaviour->NextMove(this, env.GetCritters());
+	if(newDir[0] != 0 || newDir[0] != 0){
+		this->direction[0] = newDir[0];
+		this->direction[1] = newDir[1];
+	}*/
+	
+
 	// Check Collision with environment
 	int xLim = env.getWidth();
 	int yLim = env.getHeight();
@@ -87,22 +96,22 @@ void BaseCritter::Move(Environment & env){
 		direction[1] = -direction[1];
 	}
 
-	// Movement
+    // Movement
 	
- 	position[0] += direction[0] * CalculateSpeed();
-	position[1] += direction[1] * CalculateSpeed();
+ 	position[0] += direction[0] * speed;
+	position[1] += direction[1] * speed;
  }
 
-void BaseCritter::Update(Environment & env){
+void BaseCritter::Update(Environment & env, float speed){
 	// Called by Environment
-	this->Move(env);
+	this->Move(env, speed);
 	this->age++;
 
 	// Checking natural death
-	if(this->age >= this->lifespan){
+	/*if(this->age >= this->lifespan){
 		std::cout << this->id << " is dying of old age." << std::endl;
 		this->isDead = true;
-	}
+	}*/
 }
 
 bool BaseCritter::IsColliding(CritterInterface &other){
@@ -135,7 +144,7 @@ bool BaseCritter::IsColliding(CritterInterface &other){
 
 void BaseCritter::AttemptSurvive(){
 	double randNum = (double) std::rand() / RAND_MAX;
-	std::cout << randNum << std::endl;
+	//std::cout << randNum << std::endl;
 	if(randNum <= collisionDeathChance){
 		std::cout << *this << " died from collision." << std::endl;
 		this->isDead = true;
@@ -153,11 +162,11 @@ bool BaseCritter::IsDying(){
 void BaseCritter::Bounce(){
 	//The critter then goes in the opposite direction.
 	float newDir[DIM];
-	memcpy(newDir, this->direction, DIM * sizeof(float));
+	//memcpy(newDir, this->direction, DIM * sizeof(float));
 	for(int i= 0; i < DIM; i++){
-		newDir[i] = - newDir[i];
+		direction[i] = - direction[i];
 	}
-	this->MoveTowards(newDir);
+	//this->MoveTowards(newDir);
 
 }
 
@@ -185,15 +194,15 @@ void BaseCritter::setIsDying(bool dead){this->isDead = dead;}
 void BaseCritter::Draw(UImg & support){
 	const float HEADRATIO = 2.1;
 
-	const float orientation = atan(this->position[0] / this->position[1]) * 180 / M_PI;
+	const float orientation = atan(this->direction[1] / this->direction[0]) * 180 / M_PI;
 	const float maxSize = std::max(this->size[0], this->size[1]);
-	const double xt = this->position[0] + cos(orientation)*maxSize/HEADRATIO;
-	const double yt = this->position[1] - sin(orientation)*maxSize/HEADRATIO;
+	const double xt = this->position[0] + direction[0]*maxSize/HEADRATIO;
+	const double yt = this->position[1] - direction[1]*maxSize/HEADRATIO;
     
 	
 	//std::cout << this->behaviour->GetColor()[0] << std::endl;
 	support.draw_ellipse(this->position[0], this->position[1], this->size[0], this->size[1], orientation, this->behaviour->GetColor());
-	support.draw_circle( xt, yt, maxSize/HEADRATIO, this->behaviour->GetColor());
+	//support.draw_circle( xt, yt, maxSize/HEADRATIO, this->behaviour->GetColor());
 }
 
 void BaseCritter::MoveTowards(const float newDirection[DIM]){

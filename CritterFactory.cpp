@@ -5,7 +5,13 @@
 #include <cmath>
 #include <iostream>
 #include "Behaviour/Kamikaze.h"
+#include "Behaviour/Fearful.h"
 #include "Decorator/CritterWithFin.h"
+#include "Decorator/CritterWithShell.h"
+#include "Decorator/CritterWithCamouflage.h"
+#include "Decorator/CritterAccessoryDecorator.h"
+#include "SensorDecorator/CritterSensorDecorator.h"
+#include "SensorDecorator/CritterWithEar.h"
 
 int CritterFactory::count = 0;
 
@@ -23,9 +29,10 @@ CritterInterface* CritterFactory::CreateBaseCritter() const{
 	float position[2];
 	float size[2];
 	float direction[2];
-	for(int i= 0; i < 2; i++){
-		size[i] = RandomBoundedFloat(minSize, maxSize);
-	}
+	
+	size[0] = RandomBoundedFloat(minSize, maxSize);
+	size[1] = size[0] / 3;
+	
 	//any position within the aquarium
 	position[0] = RandomBoundedFloat(0, width);
 	position[1] = RandomBoundedFloat(0, height);
@@ -34,10 +41,27 @@ CritterInterface* CritterFactory::CreateBaseCritter() const{
 	direction[1] = sin(angle);
 
 	int id = count++;
-	Kamikaze* k = new Kamikaze();
+	BehaviourInterface* k;
+	if(AttemptThreshold(fearfulPerc)){
+		k = new Fearful();
+	}else{
+		k = new Kamikaze();
+	}
 
 	CritterInterface* b = new BaseCritter(id, speed, lifespan, position, direction, size, k);
-	//if(AttemptThreshold(finChance)){b = new CritterWithFin(b, 0); }
+	if(AttemptThreshold(finChance)){
+		b = new CritterWithFin(b, 2); 
+	}
+	if(AttemptThreshold(shellChance)){
+		b = new CritterWithShell(b, 5, 5);
+	}
+	if(AttemptThreshold(camouflageChance)){
+		b = new CritterWithCamouflage(b, 0.5);
+	}
+	if(AttemptThreshold(earChance)){
+		b = new CritterWithEar(b, 20 , 0.1);
+	}
+	
 	return b;
 }
 

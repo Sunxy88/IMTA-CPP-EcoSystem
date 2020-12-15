@@ -6,8 +6,7 @@
 
 
 #include "CritterSensorDecorator.h"
-#include "CritterSensorInterface.h"
 
-CritterSensorDecorator::CritterSensorDecorator(CritterSensorInterface  *crittersensor) : crittersensor(crittersensor) {}
-
+CritterSensorDecorator::CritterSensorDecorator(CritterInterface  *critter) : critter(critter) {}
+CritterSensorDecorator::~CritterSensorDecorator(){}
 

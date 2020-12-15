@@ -10,8 +10,11 @@
 // A fearful critter will run to the opposite direction if there are too many critters around
 class Fearful : public BehaviourInterface {
 public:
+    Fearful();
+    ~Fearful();
     float* NextMove(CritterInterface* critter, std::vector<std::shared_ptr<CritterInterface>> listcritters) override;
     int * GetColor();
+    BehaviourInterface* clone() override;
 
 private:
     int color[3] = {0,0,255};

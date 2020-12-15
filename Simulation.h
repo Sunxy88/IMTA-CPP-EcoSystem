@@ -23,13 +23,13 @@ static const int width = 1000;
 static const int height = 500;
 
 // Critter features
-static const float minSize = 5.0;
-static const float maxSize = 10.0;
+static const float minSize = 9.0;
+static const float maxSize = 15.0;
 static const float minSpeed = 5.0;
 static const float maxSpeed = 10.0;
-static const int minLifespan = 10;
-static const int maxLifespan = 100;
+static const int minLifespan = 100;
+static const int maxLifespan = 200;
 
-static const float collisionDeathChance = 0.0;
+static const float collisionDeathChance = 0.2;
 
 #endif

@@ -17,7 +17,7 @@ public:
 
 private:
     int color[3] = {255,0,0};
-    float getDistance(float * p1, float * p2);
+    float getDistance(const float * p1, const float * p2);
 };
 
 

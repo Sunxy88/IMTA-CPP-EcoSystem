@@ -7,13 +7,16 @@
 #include "vector"
 #define FEAR_THRESHOLD 6 // The threshold of run away
 
+Fearful::Fearful(){}
+Fearful::~Fearful(){}
+
 float * Fearful::NextMove(CritterInterface* critter, std::vector<std::shared_ptr<CritterInterface>> listcritters) {
     std::vector<std::shared_ptr<CritterInterface>> critters = critter->Detect(listcritters);
     int number = critters.size();
     const float* direction = critter->GetDirection();
     const float* position = critter->GetPosition();
-    float dir[2];
-    // To the opposite direction
+    float dir[2] = {0, 0};
+//    To the opposite direction
     if (number > FEAR_THRESHOLD) {
         dir[0] = position[0] * 2 - direction[0];
         dir[1] = position[1] * 2 - direction[1];
@@ -23,4 +26,8 @@ float * Fearful::NextMove(CritterInterface* critter, std::vector<std::shared_ptr
 
 int * Fearful::GetColor() {
     return color;
+}
+
+BehaviourInterface* Fearful::clone(){
+    return new Fearful(*this);
 }

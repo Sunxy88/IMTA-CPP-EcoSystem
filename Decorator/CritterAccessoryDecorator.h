@@ -5,21 +5,18 @@
 #define  CRITTERACCESSORYDECORATOR_H_
 
 
-#include "CritterAccessoryInterface.h"
+#include "../CritterInterface.h"
 
-class CritterAccessoryDecorator : public CritterAccessoryInterface
+class CritterAccessoryDecorator : public CritterInterface
 
 {
 protected:
     
-    CritterAccessoryInterface* component;
+    CritterInterface* component;
 
 public:
-    CritterAccessoryDecorator(CritterAccessoryInterface* component_ );
-    //~CritterAccessoryDecorator(){} faut il le mettre ?
-    virtual float CalculateSpeed() = 0;
-    virtual float CalculateCollisionResistance() = 0 ;
-    virtual float CalculateCamouflageCapacity() = 0 ;
+    CritterAccessoryDecorator(CritterInterface* component_ );
+    virtual ~CritterAccessoryDecorator();
 
 };
 
