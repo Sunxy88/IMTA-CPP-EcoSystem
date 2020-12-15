@@ -22,6 +22,7 @@ public:
 
     const float* GetPosition() const override;
     const float* GetDirection() const override;
+    float* GetModifiableDir() override;
     const float* GetSize() const override;
     const int GetId() const override;
     const float GetBaseSpeed() const override;

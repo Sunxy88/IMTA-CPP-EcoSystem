@@ -16,6 +16,8 @@ int main()
    std::srand(std::time(NULL));
 	std::rand();
    
+   ecosysteme.getMilieu().AddCritter();
+   ecosysteme.getMilieu().AddCritter();
    std::cout << ecosysteme.getMilieu().GetCritters().size() << std::endl;
    ecosysteme.run();
 

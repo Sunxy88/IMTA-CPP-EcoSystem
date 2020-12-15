@@ -10,21 +10,24 @@ int * Sheep::GetColor() {
     return color;
 }
 
-float * Sheep::NextMove(CritterInterface* critter, Environment & env) {
-//    CritterInterface * critters = Environment::GetInstance().CritterInterface();
-    std::vector<std::shared_ptr<CritterInterface>> critters = critter->Detect(env.GetCritters());
-//    int number_critters = sizeof(critters) / sizeof(critters[0]);
-    int number_critters = critters.size();
-    float average_direction[2] = {0.0, 0.0};
+void Sheep::NextMove(CritterInterface* critter, float direction[2], std::vector<std::shared_ptr<CritterInterface>> listcritters) {
+    std::vector<std::shared_ptr<CritterInterface>> critters = critter->Detect(listcritters);
+    int number = critters.size();
+    
+    const float* position = critter->GetPosition();
+    float orientation = 0;
+    
+        // Get the mean of  the orientations to other detected critters
+        for (int i = 0; i < number; ++i) {
+            orientation += atan2(critters.at(i)->GetPosition()[1] - position[1], critters.at(i)->GetPosition()[0] - position[0]);
+        }
+        orientation /= number;
 
-    for (int i = 0; i < number_critters; i++) {
-        const float * current_direction = critters[i]->GetDirection();
-        average_direction[0] += current_direction[0];
-        average_direction[1] += current_direction[1];
-    }
+        direction[0] = cos(orientation);
+        direction[1] = sin(orientation);
+    
+}
 
-    average_direction[0] /= number_critters;
-    average_direction[1] /= number_critters;
-
-    return average_direction;
+BehaviourInterface* Sheep::clone(){
+    return new Sheep(*this);
 }

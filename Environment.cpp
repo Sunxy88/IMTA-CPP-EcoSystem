@@ -35,9 +35,9 @@ void Environment::Draw()
    cimg_forXY( *this, x, y ) fillC( x, y, 0, white[0], white[1], white[2] );
    for ( std::vector<std::shared_ptr<CritterInterface>>::iterator it = listCritter.begin() ; it != listCritter.end() ; ++it )
    {
-
+      
       (*it)->Draw( *this );
-
+    
    } 
 
 }
@@ -48,6 +48,7 @@ void Environment::UpdateCritters()
 
    for ( std::vector<std::shared_ptr<CritterInterface>>::iterator it = listCritter.begin() ; it != listCritter.end() ; ++it )
    {
+
       
       (*it)->Update(*this, (*it)->CalculateSpeed());
       // Check for collision
@@ -61,6 +62,7 @@ void Environment::UpdateCritters()
                (*it2)->AttemptSurvive();
 
             }
+            
       }
 
    } 
@@ -73,7 +75,6 @@ void Environment::AddCritter(){
    std::shared_ptr<CritterInterface> critter;
    critter.reset(this->critterFactory->CreateBaseCritter());
    listCritter.push_back(critter);
-   std::cout << listCritter.size() << std::endl;
 }
 
 void Environment::RemoveDeadCritters(){

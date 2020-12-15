@@ -7,6 +7,7 @@
 
 #include <string>
 #include "CritterWithEar.h"
+#include "../Environment.h"
 #include <iostream>
 #include <cmath>
 using namespace std;
@@ -25,8 +26,15 @@ std::vector<std::shared_ptr<CritterInterface>> CritterWithEar::Detect(std::vecto
         std::vector<std::shared_ptr<CritterInterface>> result;
 
         // iterate over all critters and check if they are colliding with my ear
-        for(int i = 0; i < critters.size(); i++){
-                if(IsEarColliding(*critters.at(i)) && capacity > critters.at(i)->CalculateCamouflageCapacity()) result.push_back(critters.at(i)); 
+        for ( std::vector<std::shared_ptr<CritterInterface>>::iterator it = critters.begin() ; it != critters.end() ; ++it )
+   {
+            if((*it)->GetId() == critter->GetId()){
+                continue;
+            }
+            if(IsEarColliding(*(*it)) && capacity > critter->CalculateCamouflageCapacity()){
+                        result.push_back((*it)); 
+                        std::cout << (*it)->GetId() << " was detected by " << critter->GetId() << "'s ear" << std::endl;
+            } 
         }
         return result;
 }
@@ -83,6 +91,7 @@ void CritterWithEar::Move(Environment & env, float speed){
  }
 
 void CritterWithEar::Update(Environment & env, float speed){
+    this->critter->GetBehaviour()->NextMove(this, GetModifiableDir(), env.GetCritters());
 	this->critter->Update(env, speed);
 }
 
@@ -103,6 +112,8 @@ const float* CritterWithEar::GetPosition() const {return this->critter->GetPosit
 
 const float* CritterWithEar::GetDirection() const {return this->critter->GetDirection(); }
 
+float* CritterWithEar::GetModifiableDir() {return this->critter->GetModifiableDir(); }
+
 const float* CritterWithEar::GetSize() const {return this->critter->GetSize(); }
 
 const int CritterWithEar::GetId() const {return this->critter->GetId(); }
@@ -122,7 +133,7 @@ void CritterWithEar::setIsDying(bool dead){this->critter->setIsDying(dead);}
 
 void CritterWithEar::Draw(UImg & support){
     int color[3] = {0,150,0};
-     support.draw_circle( critter->GetPosition()[0], critter->GetPosition()[1], radius, color);
+     support.draw_circle( critter->GetPosition()[0], critter->GetPosition()[1], radius, color, 0.5);
 	this->critter->Draw(support);
 }
 
