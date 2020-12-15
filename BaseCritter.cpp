@@ -143,16 +143,20 @@ bool BaseCritter::IsColliding(CritterInterface &other){
 //}
 
 void BaseCritter::AttemptSurvive(){
+	// Called when colliding with another critter.
+	// Has a random chance to either die or survive (and bounce)
+	// Collision resistance gives another chance at survival if this critter is about to die
 	double randNum = (double) std::rand() / RAND_MAX;
-	//std::cout << randNum << std::endl;
 	if(randNum <= collisionDeathChance){
-		std::cout << *this << " died from collision." << std::endl;
-		this->isDead = true;
+		if((double) std::rand() / RAND_MAX >= this->CalculateCollisionResistance()){
+			std::cout << *this << " died from collision." << std::endl;
+			this->isDead = true;
+			return;
+		}
 	}
-	else{
-		std::cout << *this << " has survived collision and bounced." << std::endl;
-		Bounce();
-	}
+	std::cout << *this << " has survived collision and bounced." << std::endl;
+	Bounce();
+	return;
 }
 
 bool BaseCritter::IsDying(){

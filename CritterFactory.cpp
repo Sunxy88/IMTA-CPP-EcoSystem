@@ -50,16 +50,22 @@ CritterInterface* CritterFactory::CreateBaseCritter() const{
 
 	CritterInterface* b = new BaseCritter(id, speed, lifespan, position, direction, size, k);
 	if(AttemptThreshold(finChance)){
-		b = new CritterWithFin(b, 2); 
+		float speedBonus = RandomBoundedFloat(minSpeedBonus, maxSpeedBonus);
+		b = new CritterWithFin(b, speedBonus); 
 	}
 	if(AttemptThreshold(shellChance)){
-		b = new CritterWithShell(b, 5, 5);
+		float speedMalus = RandomBoundedFloat(minSpeedMalus, maxSpeedMalus);
+		float resistanceBonus = RandomBoundedFloat(minShellResistance, maxShellResistance);
+		b = new CritterWithShell(b, speedMalus, resistanceBonus);
 	}
 	if(AttemptThreshold(camouflageChance)){
-		b = new CritterWithCamouflage(b, 0.5);
+		float camouflageChance = RandomBoundedFloat(minCamouflageBonus, maxCamouflageBonus);
+		b = new CritterWithCamouflage(b, camouflageChance);
 	}
 	if(AttemptThreshold(earChance)){
-		b = new CritterWithEar(b, 20 , 0.1);
+		float radius = RandomBoundedFloat(minEarRadius, maxEarRadius);
+		float capacity = RandomBoundedFloat(minEarCapacity, maxEarCapacity);
+		b = new CritterWithEar(b, radius , capacity);
 	}
 	
 	return b;
