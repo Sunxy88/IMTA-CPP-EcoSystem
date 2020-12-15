@@ -14,18 +14,22 @@ void Sheep::NextMove(CritterInterface* critter, float direction[2], std::vector<
     std::vector<std::shared_ptr<CritterInterface>> critters = critter->Detect(listcritters);
     int number = critters.size();
     
-    const float* position = critter->GetPosition();
+    if(number > 0){
+    
     float orientation = 0;
     
         // Get the mean of  the orientations to other detected critters
         for (int i = 0; i < number; ++i) {
-            orientation += atan2(critters.at(i)->GetPosition()[1] - position[1], critters.at(i)->GetPosition()[0] - position[0]);
+            orientation += atan(critters.at(i)->GetDirection()[1] / critters.at(i)->GetDirection()[0]);
         }
         orientation /= number;
 
+        // Get opposite angle and store it in direction array
+        
         direction[0] = cos(orientation);
         direction[1] = sin(orientation);
     
+    }
 }
 
 BehaviourInterface* Sheep::clone(){

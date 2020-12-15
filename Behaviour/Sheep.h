@@ -5,7 +5,6 @@
 #ifndef CODE_V1_1_SHEEP_H
 #define CODE_V1_1_SHEEP_H
 #include "BehaviourInterface.h"
-#include "CritterInterface.h"
 
 class Sheep : public BehaviourInterface {
 public:

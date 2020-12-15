@@ -33,7 +33,6 @@ BaseCritter::BaseCritter(const BaseCritter &b) : behaviour(b.behaviour->clone())
 	memcpy(this->direction, b.GetDirection(), DIM * sizeof(float));
 	memcpy(this->size, b.GetSize(), DIM * sizeof(float));
 	this->lifespan = b.GetLifespan();
-	//this->behaviour = behaviour;
 	std::cout << behaviour->GetColor()[0] << std::endl;
 	this->isMultiBehaviour = b.GetMultiBehaviour();
 
@@ -76,9 +75,6 @@ void BaseCritter::ChangeBehaviour(BehaviourInterface* newBehaviour){
 }
 
 void BaseCritter::Move(Environment & env, float speed){
-	// Get direction from behaviour
-	//behaviour->NextMove(this, this->direction, env.GetCritters());
-	
 
 	// Check Collision with environment
 	int xLim = env.getWidth();
@@ -103,10 +99,10 @@ void BaseCritter::Update(Environment & env, float speed){
 	this->age++;
 
 	// Checking natural death
-	/*if(this->age >= this->lifespan){
+	if(this->age >= this->lifespan){
 		std::cout << this->id << " is dying of old age." << std::endl;
 		this->isDead = true;
-	}*/
+	}
 }
 
 bool BaseCritter::IsColliding(CritterInterface &other){
@@ -156,13 +152,9 @@ bool BaseCritter::IsDying(){
 
 void BaseCritter::Bounce(){
 	//The critter then goes in the opposite direction.
-	//float newDir[DIM];
-	//memcpy(newDir, this->direction, DIM * sizeof(float));
 	for(int i= 0; i < DIM; i++){
 		direction[i] = - direction[i];
 	}
-	//this->MoveTowards(newDir);
-
 }
 
 const float* BaseCritter::GetPosition() const {return this->position; }
@@ -199,8 +191,8 @@ void BaseCritter::Draw(UImg & support){
 	
 	//std::cout << this->behaviour->GetColor()[0] << std::endl;
 	support.draw_ellipse(this->position[0], this->position[1], this->size[0], this->size[1], orientation, this->behaviour->GetColor());
-	
-	//support.draw_text(this->position[0], this->position[1], "some", purple, purple, op, 5);
+	int text_color[3] = {100,100,0};
+	support.draw_text(this->position[0], this->position[1], std::to_string(GetId()).c_str(), text_color, 1, 1.0, 22);
 	//support.draw_circle( xt, yt, maxSize/HEADRATIO, this->behaviour->GetColor());
 }
 

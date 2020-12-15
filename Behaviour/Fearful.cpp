@@ -5,7 +5,7 @@
 #include "Fearful.h"
 #include "../Environment.h"
 #include "vector"
-#define FEAR_THRESHOLD 1
+
 
 Fearful::Fearful(){}
 Fearful::~Fearful(){}

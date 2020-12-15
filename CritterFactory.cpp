@@ -26,7 +26,7 @@ CritterInterface* CritterFactory::CreateBaseCritter() const{
 	// Using simulation parameters to randomly create a critter
 
 	const float speed = RandomBoundedFloat(minSpeed, maxSpeed);
-	const float lifespan = RandomBoundedFloat(minSpeed, maxSpeed);
+	const float lifespan = RandomBoundedFloat(minLifespan, maxLifespan);
 
 	float position[2];
 	float size[2];
@@ -44,27 +44,40 @@ CritterInterface* CritterFactory::CreateBaseCritter() const{
 
 	int id = count++;
 	BehaviourInterface* k;
-	if(AttemptThreshold(fearfulPerc)){
-		k = new Fearful();
-	}else{
+	float behaviour_rand = RandomBoundedFloat(0, 1);
+	std::cout << behaviour_rand << "  Behave" << std::endl;
+	if(behaviour_rand < 0.2){
 		k = new Kamikaze();
+	}else if (behaviour_rand < 0.5){
+		k = new Fearful();
+	}else {
+		k = new Sheep();
 	}
 
 	CritterInterface* b = new BaseCritter(id, speed, lifespan, position, direction, size, k);
 	if(AttemptThreshold(finChance)){
-		b = new CritterWithFin(b, 1); 
+		float speedBonus = RandomBoundedFloat(minSpeedBonus, maxSpeedBonus);
+		b = new CritterWithFin(b, speedBonus); 
 	}
 	if(AttemptThreshold(shellChance)){
-		b = new CritterWithShell(b, 1, 5);
+		float speedMalus = RandomBoundedFloat(minSpeedMalus, maxSpeedMalus);
+		float resistanceBonus = RandomBoundedFloat(minShellResistance, maxShellResistance);
+		b = new CritterWithShell(b, speedMalus, resistanceBonus);
 	}
 	if(AttemptThreshold(camouflageChance)){
-		b = new CritterWithCamouflage(b, 0.5);
+		float camouflageChance = RandomBoundedFloat(minCamouflageBonus, maxCamouflageBonus);
+		b = new CritterWithCamouflage(b, camouflageChance);
 	}
 	if(AttemptThreshold(earChance)){
-		b = new CritterWithEar(b, 60 , 1);
+		float radius = RandomBoundedFloat(minEarRadius, maxEarRadius);
+		float capacity = RandomBoundedFloat(minEarCapacity, maxEarCapacity);
+		b = new CritterWithEar(b, radius , capacity);
 	}
 	if(AttemptThreshold(eyeChance)){
-		b = new CritterWithEye(b, 1, 200 , 1);
+		float distance = RandomBoundedFloat(minEyeDistance, maxEyeDistance);
+		float eye_capacity = RandomBoundedFloat(minEyeCapacity, maxEyeCapacity);
+		float eye_angle = RandomBoundedFloat(minEyeAngle, maxEyeAngle);
+		b = new CritterWithEye(b, eye_angle, distance, eye_capacity);
 	}
 	
 	return b;

@@ -19,6 +19,8 @@ private:
     float distance;
     float capacity;
 
+    
+
 public:
 	CritterWithEye(CritterInterface* critter, float angle, float distance, float capacity);
 	~CritterWithEye();
@@ -35,6 +37,7 @@ public:
     void Update(Environment & env, float speed) override;
     bool IsColliding(CritterInterface &other) override;
 	bool IsEyeColliding(CritterInterface &other); // Only this class has this method
+    float Sign(float cx, float cy, float t1x, float t1y, float t2x, float t2y);
     std::vector<std::shared_ptr<CritterInterface>> Detect(std::vector<std::shared_ptr<CritterInterface>> critters) override;
 
     const float* GetPosition() const override;
