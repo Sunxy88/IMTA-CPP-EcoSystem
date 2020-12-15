@@ -48,7 +48,7 @@ void Environment::UpdateCritters()
 
    for ( std::vector<std::shared_ptr<CritterInterface>>::iterator it = listCritter.begin() ; it != listCritter.end() ; ++it )
    {
-      
+
       (*it)->Update(*this, (*it)->CalculateSpeed());
       // Check for collision
       for ( std::vector<std::shared_ptr<CritterInterface>>::iterator it2 = listCritter.begin() ; it2 != listCritter.end() ; ++it2 ){

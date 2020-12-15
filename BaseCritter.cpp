@@ -108,10 +108,10 @@ void BaseCritter::Update(Environment & env, float speed){
 	this->age++;
 
 	// Checking natural death
-	/*if(this->age >= this->lifespan){
+	if(this->age >= this->lifespan){
 		std::cout << this->id << " is dying of old age." << std::endl;
 		this->isDead = true;
-	}*/
+	}
 }
 
 bool BaseCritter::IsColliding(CritterInterface &other){

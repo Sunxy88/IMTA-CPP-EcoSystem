@@ -24,7 +24,7 @@ CritterInterface* CritterFactory::CreateBaseCritter() const{
 	// Using simulation parameters to randomly create a critter
 
 	const float speed = RandomBoundedFloat(minSpeed, maxSpeed);
-	const float lifespan = RandomBoundedFloat(minSpeed, maxSpeed);
+	const float lifespan = RandomBoundedFloat(minLifespan, maxLifespan);
 
 	float position[2];
 	float size[2];
