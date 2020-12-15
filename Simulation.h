@@ -10,6 +10,14 @@ static const float kamikazePerc = 0.2;
 static const float carefulPerc = 0;
 static const float sheepPerc = 0;
 
+// For fearful critter. A fearful will go to the opposite direction if
+// the number of critters around it is bigger than this threshold
+static const int FEAR_THRESHOLD = 10;
+
+// For careful critter.
+static const float WEIGHT_NUMBER_OF_CRITTERS = 0.4;
+static const float WEIGHT_DISTANCE = 0.6;
+
 // Accessories & Sensors config : for birth
 static const float eyeChance = 0.5;
 static const float earChance = 0.5;
