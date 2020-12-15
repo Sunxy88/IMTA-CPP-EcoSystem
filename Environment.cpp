@@ -69,11 +69,14 @@ void Environment::UpdateCritters()
 
 }
 
+
 void Environment::AddCritter(){
-   std::shared_ptr<CritterInterface> critter;
-   critter.reset(this->critterFactory->CreateBaseCritter());
-   listCritter.push_back(critter);
-   std::cout << listCritter.size() << std::endl;
+//    shared_ptr is employed here to simplify the management of memory and
+//    to void the leak of memory since critter is easily created and easily dies.
+    std::shared_ptr<CritterInterface> critter;
+    critter.reset(this->critterFactory->CreateBaseCritter());
+    listCritter.push_back(critter);
+    std::cout << listCritter.size() << std::endl;
 }
 
 void Environment::RemoveDeadCritters(){

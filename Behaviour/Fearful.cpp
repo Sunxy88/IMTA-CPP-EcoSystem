@@ -5,7 +5,7 @@
 #include "Fearful.h"
 #include "../Environment.h"
 #include "vector"
-#define FEAR_THRESHOLD 6 // The threshold of run away
+#include "../Simulation.h"
 
 Fearful::Fearful(){}
 Fearful::~Fearful(){}
