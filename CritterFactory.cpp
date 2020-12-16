@@ -83,7 +83,15 @@ CritterInterface* CritterFactory::CreateBaseCritter() const{
 	return b;
 }
 
+CritterInterface* CritterFactory::AttemptCloning(CritterInterface* critter) const{
+	CritterInterface* newCritter = nullptr;
+	if(AttemptThreshold(cloneRate)){
+		std::cout << "Cloning " << *(reinterpret_cast<BaseCritter*>(critter)) <<std::endl;
+		//newCritter = new BaseCritter(*(reinterpret_cast<BaseCritter*>(critter)));
+	}
 
+	return newCritter;
+}
 
 
 const float CritterFactory::RandomBoundedFloat(const float min, const float max) const{

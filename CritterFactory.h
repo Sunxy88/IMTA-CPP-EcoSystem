@@ -16,6 +16,7 @@ class CritterFactory {
  	public :
  		CritterFactory();
  		CritterInterface* CreateBaseCritter() const;
+ 		CritterInterface* AttemptCloning(CritterInterface* critter) const;
  		const static int GetNewId();
 };
 

@@ -38,6 +38,7 @@ BaseCritter::BaseCritter(const BaseCritter &b) : behaviour(b.behaviour->clone())
 
 	this->age = 0;
 	this->isDead = false;
+	std::cout << "It's fine" << std::endl;
 }
 
 std::ostream& operator<<(std::ostream& flot, const BaseCritter& b){

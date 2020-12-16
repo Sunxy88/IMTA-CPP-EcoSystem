@@ -59,5 +59,6 @@ static const int minLifespan = 1000;
 static const int maxLifespan = 2000;
 
 static const float collisionDeathChance = 0.2;
+static const float cloneRate = 0.001;
 
 #endif

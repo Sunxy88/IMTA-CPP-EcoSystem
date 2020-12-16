@@ -65,6 +65,11 @@ void Environment::UpdateCritters()
             
       }
 
+      //Attempting to clone
+      CritterInterface* newCritter = this->critterFactory->AttemptCloning((*it).get());
+      if(newCritter){
+         AddCritter(newCritter);
+      }
    } 
 
    RemoveDeadCritters();
@@ -73,10 +78,14 @@ void Environment::UpdateCritters()
 
 
 void Environment::AddCritter(){
+   AddCritter(this->critterFactory->CreateBaseCritter());
+}
+
+void Environment::AddCritter(CritterInterface* crit){
 //    shared_ptr is employed here to simplify the management of memory and
 //    to void the leak of memory since critter is easily created and easily dies.
    std::shared_ptr<CritterInterface> critter;
-   critter.reset(this->critterFactory->CreateBaseCritter());
+   critter.reset(crit);
    listCritter.push_back(critter);
 }
 
