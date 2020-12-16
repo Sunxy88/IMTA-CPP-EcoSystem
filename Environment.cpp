@@ -47,11 +47,11 @@ void Environment::UpdateCritters()
 {
 
    // New Critters Spawning
-   float r = ((float) std::rand()) / (float) RAND_MAX;
+   /*float r = ((float) std::rand()) / (float) RAND_MAX;
    if(r > spawnRate){
       std::cout << "a new Critter spawned  " << std::endl;
       AddCritter();
-   }
+   }*/
    for ( std::vector<std::shared_ptr<CritterInterface>>::iterator it = listCritter.begin() ; it != listCritter.end() ; ++it )
    {
       /*if(std::rand() < spawnRate){

@@ -3,7 +3,7 @@
 
 // Behaviour config
 static const int initialCritterNumber = 20;
-static const float spawnRate = 0.3; // number of critters appearing at each update cycle
+static const float spawnRate = 0.01; // number of critters appearing at each update cycle
 	// Make sure sum is equal to 1
 static const float kamikazePerc = 0.25;
 static const float fearfulPerc = 0.50;
