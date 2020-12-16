@@ -6,7 +6,7 @@
 #define CODE_V1_1_KAMIKAZE_H
 #include "BehaviourInterface.h"
 
-
+// A kamikaze critter attack the nearest critter
 class Kamikaze : public BehaviourInterface {
 public:
     Kamikaze();

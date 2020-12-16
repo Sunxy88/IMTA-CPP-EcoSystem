@@ -39,6 +39,7 @@ static const float minEarRadius = 30;
 static const float maxEarRadius = 50;
 static const float minEarCapacity = 0.3;
 static const float maxEarCapacity = 1.0;
+
 static const float minEyeDistance = 40;
 static const float maxEyeDistance = 70;
 static const float minEyeCapacity = 0.3;

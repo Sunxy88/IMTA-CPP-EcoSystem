@@ -134,16 +134,20 @@ bool BaseCritter::IsColliding(CritterInterface &other){
 //}
 
 void BaseCritter::AttemptSurvive(){
+	// Called when colliding with another critter.
+	// Has a random chance to either die or survive (and bounce)
+	// Collision resistance gives another chance at survival if this critter is about to die
 	double randNum = (double) std::rand() / RAND_MAX;
-	//std::cout << randNum << std::endl;
 	if(randNum <= collisionDeathChance){
-		std::cout << *this << " died from collision." << std::endl;
-		this->isDead = true;
+		if((double) std::rand() / RAND_MAX >= this->CalculateCollisionResistance()){
+			std::cout << *this << " died from collision." << std::endl;
+			this->isDead = true;
+			return;
+		}
 	}
-	else{
-		std::cout << *this << " has survived collision and bounced." << std::endl;
-		Bounce();
-	}
+	std::cout << *this << " has survived collision and bounced." << std::endl;
+	Bounce();
+	return;
 }
 
 bool BaseCritter::IsDying(){
@@ -173,7 +177,7 @@ const int BaseCritter::GetLifespan() const {return this->lifespan; }
 
 const int BaseCritter::GetCurrentAge() const {return this->age; }
 
-BehaviourInterface* BaseCritter::GetBehaviour() {return this->behaviour;}
+BehaviourInterface* BaseCritter::GetBehaviour() {return this->behaviour; }
 
 const bool BaseCritter::GetMultiBehaviour() const {return this->isMultiBehaviour; }
 
@@ -181,19 +185,15 @@ void BaseCritter::setIsDying(bool dead){this->isDead = dead;}
 
 
 void BaseCritter::Draw(UImg & support){
-	//const float HEADRATIO = 2.1;
-
 	const float orientation = atan(this->direction[1] / this->direction[0]) * 180 / M_PI;
-	/*const float maxSize = std::max(this->size[0], this->size[1]);
-	const double xt = this->position[0] + direction[0]*maxSize/HEADRATIO;
-	const double yt = this->position[1] - direction[1]*maxSize/HEADRATIO;*/
-    
+	const float maxSize = std::max(this->size[0], this->size[1]);
 	
 	//std::cout << this->behaviour->GetColor()[0] << std::endl;
 	support.draw_ellipse(this->position[0], this->position[1], this->size[0], this->size[1], orientation, this->behaviour->GetColor());
-	int text_color[3] = {100,100,0};
-	support.draw_text(this->position[0], this->position[1], std::to_string(GetId()).c_str(), text_color, 1, 1.0, 22);
-	//support.draw_circle( xt, yt, maxSize/HEADRATIO, this->behaviour->GetColor());
+	const float black[3] = {0, 0, 0};
+	support.draw_text(this->position[0], this->position[1], std::to_string(this->id).c_str(), black, 1);
+	const float norm = std::pow( std::pow(this->direction[0], 2) + std::pow(this->direction[1], 2), 0.5 ) * 0.5/maxSize;
+	support.draw_arrow(this->position[0], this->position[1], this->position[0] + this->direction[0] / norm, this->position[1] + this->direction[1] / norm, black);
 }
 
 void BaseCritter::MoveTowards(const float newDirection[DIM]){

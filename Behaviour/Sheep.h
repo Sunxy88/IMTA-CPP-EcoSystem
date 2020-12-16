@@ -6,6 +6,7 @@
 #define CODE_V1_1_SHEEP_H
 #include "BehaviourInterface.h"
 
+// A sheep critter adjusts its direction to the average direction
 class Sheep : public BehaviourInterface {
 public:
     Sheep();

@@ -19,6 +19,9 @@ private :
    static const T          white[];
 
    int                     width, height;
+//   std::vector<> is used to make it easier to manage the pointers of critters.
+//   If normal pointer is used instead of vector, the implementation
+//   will be much more difficult because of the management of memory.
    std::vector<std::shared_ptr<CritterInterface>>   listCritter;
    CritterFactory* critterFactory;
 

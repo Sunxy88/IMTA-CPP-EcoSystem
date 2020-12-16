@@ -42,7 +42,6 @@ void Kamikaze::NextMove(CritterInterface* critter, std::vector<std::shared_ptr<C
     }
     }
     
-    
 }
 
 float Kamikaze::getDistance(const float * p1, const float * p2) {

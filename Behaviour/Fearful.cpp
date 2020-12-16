@@ -6,7 +6,6 @@
 #include "../Environment.h"
 #include "vector"
 
-
 Fearful::Fearful(){}
 Fearful::~Fearful(){}
 
