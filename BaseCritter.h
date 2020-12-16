@@ -56,6 +56,7 @@ class BaseCritter : public CritterInterface{
  		const bool GetMultiBehaviour() const override;
 
  		void Draw(UImg & support) override;
+		
 
  };
 

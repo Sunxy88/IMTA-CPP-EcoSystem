@@ -34,6 +34,7 @@ public :
    void Draw();
    void UpdateCritters();
    void AddCritter();
+   void AddCritter(CritterInterface* critter);
    void RemoveDeadCritters();
    CritterInterface* getCritterById(int id);
    int getWidth();

@@ -79,3 +79,4 @@ void CritterWithFin::Draw(UImg & support){
 	this->component->Draw(support);
 }
 
+

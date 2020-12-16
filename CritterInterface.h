@@ -43,6 +43,7 @@ class CritterInterface{
  		virtual const bool GetMultiBehaviour() const = 0;
 
  		virtual void Draw(UImg & support) = 0;
+		
 
 
  };

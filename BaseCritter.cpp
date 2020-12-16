@@ -199,3 +199,4 @@ void BaseCritter::MoveTowards(const float newDirection[DIM]){
 		this->position[i] = newDirection[i];
 	}
 }
+

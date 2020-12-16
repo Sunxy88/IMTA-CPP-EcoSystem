@@ -31,7 +31,9 @@ std::vector<std::shared_ptr<CritterInterface>> CritterWithEar::Detect(std::vecto
             if((*it)->GetId() == critter->GetId()){
                 continue;
             }
-            if(IsEarColliding(*(*it)) && capacity > critter->CalculateCamouflageCapacity()){
+            float r = ((float) std::rand()) / (float) RAND_MAX;
+            
+            if(IsEarColliding(*(*it)) && capacity > r && r > critter->CalculateCamouflageCapacity()){
                         result.push_back((*it)); 
                         std::cout << (*it)->GetId() << " was detected by " << critter->GetId() << "'s ear" << std::endl;
             } 

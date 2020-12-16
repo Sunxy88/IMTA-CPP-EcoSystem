@@ -77,3 +77,4 @@ void CritterWithShell::Draw(UImg & support){
 	this->component->Draw(support);
 }
 
+
