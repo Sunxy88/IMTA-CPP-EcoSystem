@@ -47,8 +47,13 @@ void Environment::UpdateCritters()
 {
 
    // New Critters Spawning
+<<<<<<< HEAD
    /*float r = ((float) std::rand()) / (float) RAND_MAX;
    if(r > spawnRate){
+=======
+   float r = ((float) std::rand()) / (float) RAND_MAX;
+   if(r < spawnRate){
+>>>>>>> f2c883eea8c364452fc365110251ee3d7a36a081
       std::cout << "a new Critter spawned  " << std::endl;
       AddCritter();
    }*/

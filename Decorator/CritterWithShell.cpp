@@ -75,6 +75,9 @@ void CritterWithShell::setIsDying(bool dead){this->component->setIsDying(dead);}
 
 void CritterWithShell::Draw(UImg & support){
 	this->component->Draw(support);
+	const float size = (this->component->GetSize()[0] + this->component->GetSize()[1]) / 2;
+	const float color[3] = {110, 70, 36};
+	support.draw_circle(this->component->GetPosition()[0], this->component->GetPosition()[1], size, color);
 }
 
 CritterInterface* CritterWithShell::clone(){

@@ -77,6 +77,14 @@ void CritterWithFin::setIsDying(bool dead){this->component->setIsDying(dead);}
 
 void CritterWithFin::Draw(UImg & support){
 	this->component->Draw(support);
+	const float* position = this->component->GetPosition();
+	const float* direction = this->component->GetDirection();
+	const float* size = this->component->GetSize();
+	const float norm = std::pow( std::pow(direction[0], 2) + std::pow(direction[1], 2), 0.5 );
+	//TODO
+	/*support.draw_triangle(	position[0], 	position[1],
+							position[0] + direction[0] * size[0]/norm, 	position[1] - direction[1] * size[0]/norm,
+							position[0] - direction[0] * size[0]/norm, 	position[1] - direction[1] * size[0]/norm, this->component->GetBehaviour()->GetColor());*/
 }
 
 CritterInterface* CritterWithFin::clone(){
