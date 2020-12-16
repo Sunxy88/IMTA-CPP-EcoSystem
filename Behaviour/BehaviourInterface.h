@@ -13,7 +13,7 @@ class BehaviourInterface {
 public:
     BehaviourInterface();
     virtual ~BehaviourInterface();
-    virtual void NextMove(CritterInterface* critter, float direction[2], std::vector<std::shared_ptr<CritterInterface>> listcritters) = 0;
+    virtual void NextMove(CritterInterface* critter, std::vector<std::shared_ptr<CritterInterface>> listcritters) = 0;
     virtual int* GetColor() = 0;
     virtual BehaviourInterface* clone() = 0;
 };

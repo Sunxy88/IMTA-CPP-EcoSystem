@@ -15,7 +15,7 @@ int * Kamikaze::GetColor() {
     return color;
 }
 
-void Kamikaze::NextMove(CritterInterface* critter, float direction[2], std::vector<std::shared_ptr<CritterInterface>> listcritters) {
+void Kamikaze::NextMove(CritterInterface* critter, std::vector<std::shared_ptr<CritterInterface>> listcritters) {
     
     std::vector<std::shared_ptr<CritterInterface>> critters = critter->Detect(listcritters);
     int num = critters.size();
@@ -34,8 +34,8 @@ void Kamikaze::NextMove(CritterInterface* critter, float direction[2], std::vect
         if (temporary_distance <= distance) {
             
              float orientation = atan2(temporary_position[1] - current_position[1], temporary_position[0] - current_position[0]);
-            direction[0] = cos(orientation);
-            direction[1] = sin(orientation);
+            critter->GetModifiableDir()[0] = cos(orientation);
+            critter->GetModifiableDir()[1] = sin(orientation);
            
             distance = temporary_distance;
         }

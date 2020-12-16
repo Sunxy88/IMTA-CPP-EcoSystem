@@ -66,7 +66,7 @@ void Environment::UpdateCritters()
       }
 
    } 
-
+   
    RemoveDeadCritters();
 
 }

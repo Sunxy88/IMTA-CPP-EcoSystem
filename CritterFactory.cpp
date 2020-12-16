@@ -7,6 +7,7 @@
 #include "Behaviour/Kamikaze.h"
 #include "Behaviour/Fearful.h"
 #include "Behaviour/Sheep.h"
+#include "Behaviour/Careful.h"
 #include "Decorator/CritterWithFin.h"
 #include "Decorator/CritterWithShell.h"
 #include "Decorator/CritterWithCamouflage.h"
@@ -45,13 +46,15 @@ CritterInterface* CritterFactory::CreateBaseCritter() const{
 	int id = count++;
 	BehaviourInterface* k;
 	float behaviour_rand = RandomBoundedFloat(0, 1);
-	std::cout << behaviour_rand << "  Behave" << std::endl;
-	if(behaviour_rand < 0.2){
+	
+	if(behaviour_rand < kamikazePerc){
 		k = new Kamikaze();
-	}else if (behaviour_rand < 0.5){
+	}else if (behaviour_rand < fearfulPerc){
 		k = new Fearful();
-	}else {
+	}else if(behaviour_rand < sheepPerc){
 		k = new Sheep();
+	}else{
+		k = new Careful();
 	}
 
 	CritterInterface* b = new BaseCritter(id, speed, lifespan, position, direction, size, k);

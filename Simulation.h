@@ -2,13 +2,14 @@
 #define _SIMULATION_H_
 
 // Behaviour config
-static const int initialCritterNumber = 100;
+static const int initialCritterNumber = 20;
 static const float spawnRate = 0.3; // number of critters appearing at each update cycle
 	// Make sure sum is equal to 1
-static const float fearfulPerc = 0.8;
-static const float kamikazePerc = 0.2;
-static const float carefulPerc = 0;
-static const float sheepPerc = 0;
+static const float kamikazePerc = 0.25;
+static const float fearfulPerc = 0.50;
+static const float sheepPerc = 0.75;
+static const float carefulPerc = 1.0;
+
 
 // For fearful critter. A fearful will go to the opposite direction if
 // the number of critters around it is bigger than this threshold

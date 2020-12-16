@@ -44,6 +44,7 @@ void Aquarium::Kill(int id)
 
 void Aquarium::SetBehavior(int id, string const & strategy)
 {
+   delete flotte->getCritterById(id)->GetBehaviour();
    if(strategy.compare("kamikaze") == 0){
          flotte->getCritterById(id)->ChangeBehaviour(new Kamikaze());
    }

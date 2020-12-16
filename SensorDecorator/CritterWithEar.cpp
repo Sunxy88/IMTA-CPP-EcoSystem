@@ -91,7 +91,7 @@ void CritterWithEar::Move(Environment & env, float speed){
  }
 
 void CritterWithEar::Update(Environment & env, float speed){
-    this->critter->GetBehaviour()->NextMove(this, GetModifiableDir(), env.GetCritters());
+    this->critter->GetBehaviour()->NextMove(this, env.GetCritters());
 	this->critter->Update(env, speed);
 }
 

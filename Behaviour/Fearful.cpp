@@ -10,7 +10,7 @@
 Fearful::Fearful(){}
 Fearful::~Fearful(){}
 
-void Fearful::NextMove(CritterInterface* critter, float direction[2], std::vector<std::shared_ptr<CritterInterface>> listcritters) {
+void Fearful::NextMove(CritterInterface* critter, std::vector<std::shared_ptr<CritterInterface>> listcritters) {
     std::vector<std::shared_ptr<CritterInterface>> critters = critter->Detect(listcritters);
     int number = critters.size();
     
@@ -25,8 +25,8 @@ void Fearful::NextMove(CritterInterface* critter, float direction[2], std::vecto
 
         // Get opposite angle and store it in direction array
         orientation += M_PI;
-        direction[0] = cos(orientation);
-        direction[1] = sin(orientation);
+        critter->GetModifiableDir()[0] = cos(orientation);
+        critter->GetModifiableDir()[1] = sin(orientation);
     }
 }
 

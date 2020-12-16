@@ -115,7 +115,7 @@ void CritterWithEye::Update(Environment & env, float speed){
     yd = ya - r * (xb - xa) / distance;*/
 
     // Move according to behaviour
-    this->critter->GetBehaviour()->NextMove(this, GetModifiableDir(), env.GetCritters());
+    this->critter->GetBehaviour()->NextMove(this, env.GetCritters());
 
     this->critter->Update(env, speed);
 }

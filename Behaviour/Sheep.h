@@ -8,7 +8,9 @@
 
 class Sheep : public BehaviourInterface {
 public:
-    void NextMove(CritterInterface* critter, float direction[2], std::vector<std::shared_ptr<CritterInterface>> listcritters);
+    Sheep();
+    ~Sheep();
+    void NextMove(CritterInterface* critter, std::vector<std::shared_ptr<CritterInterface>> listcritters);
     int * GetColor();
     BehaviourInterface* clone() override;
 
