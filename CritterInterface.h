@@ -30,6 +30,7 @@ class CritterInterface{
  		virtual void Update(Environment & env, float speed) = 0;
  		virtual bool IsColliding(CritterInterface &other) = 0;
         virtual std::vector<std::shared_ptr<CritterInterface>> Detect(std::vector<std::shared_ptr<CritterInterface>> critters) = 0;
+        virtual CritterInterface* Clone() const = 0;
 	    
  		virtual const float* GetPosition() const = 0;
 		virtual const float* GetDirection() const = 0;

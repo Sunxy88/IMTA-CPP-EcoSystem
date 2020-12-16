@@ -26,11 +26,11 @@ class BaseCritter : public CritterInterface{
 
  	public :
  		BaseCritter(int id, float baseSpeed, int lifespan, float position[DIM], float direction[DIM], float size[DIM], BehaviourInterface* behaviour, bool isMultiBehaviour = false);
- 		BaseCritter(const BaseCritter &b);
+ 		BaseCritter(const BaseCritter* b);
  		~BaseCritter();
  		friend std::ostream& operator<<(std::ostream& flot, const BaseCritter& b);
 
- 		BaseCritter* Clone();
+ 		CritterInterface* Clone() const override;
  		void AttemptSurvive() override;
  		bool IsDying() override;
 		void setIsDying(bool dead) override;

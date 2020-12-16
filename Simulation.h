@@ -37,12 +37,12 @@ static const float maxCamouflageBonus = 1.0;
 static const float minEarRadius = 30;
 static const float maxEarRadius = 50;
 static const float minEarCapacity = 0.3;
-static const float maxEarCapacity = 1.0;
+static const float maxEarCapacity = 0.9;
 
 static const float minEyeDistance = 40;
 static const float maxEyeDistance = 70;
 static const float minEyeCapacity = 0.3;
-static const float maxEyeCapacity = 1.0;
+static const float maxEyeCapacity = 0.9;
 static const float minEyeAngle = 0.5;
 static const float maxEyeAngle = 1.2;
 

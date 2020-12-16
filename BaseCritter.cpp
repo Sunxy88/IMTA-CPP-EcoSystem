@@ -24,17 +24,17 @@ BaseCritter::BaseCritter(int id, float baseSpeed, int lifespan, float position[D
 	this->isDead = false;
 }
 
-BaseCritter::BaseCritter(const BaseCritter &b) : behaviour(b.behaviour->clone()){
+BaseCritter::BaseCritter(const BaseCritter* b) : behaviour(b->behaviour->clone()){
 	//TODO : positionning better
 	std::cout << "Copying " << b << std::endl;
 	this->id = CritterFactory::GetNewId();
-	this->baseSpeed = b.GetBaseSpeed();
-	memcpy(this->position, b.GetPosition(), DIM * sizeof(float));
-	memcpy(this->direction, b.GetDirection(), DIM * sizeof(float));
-	memcpy(this->size, b.GetSize(), DIM * sizeof(float));
-	this->lifespan = b.GetLifespan();
+	this->baseSpeed = b->GetBaseSpeed();
+	memcpy(this->position, b->GetPosition(), DIM * sizeof(float));
+	memcpy(this->direction, b->GetDirection(), DIM * sizeof(float));
+	memcpy(this->size, b->GetSize(), DIM * sizeof(float));
+	this->lifespan = b->GetLifespan();
 	std::cout << behaviour->GetColor()[0] << std::endl;
-	this->isMultiBehaviour = b.GetMultiBehaviour();
+	this->isMultiBehaviour = b->GetMultiBehaviour();
 
 	this->age = 0;
 	this->isDead = false;
@@ -49,6 +49,12 @@ std::ostream& operator<<(std::ostream& flot, const BaseCritter& b){
 BaseCritter::~BaseCritter(){
 	std::cout << "Calling BaseCritter destructor on " << *this << std::endl;
 	delete this->behaviour;
+}
+
+CritterInterface* BaseCritter::Clone() const {
+	CritterInterface* newCritter = nullptr;
+	//return static_cast<CritterInterface*>(new BaseCritter(this));
+	return newCritter;
 }
 
 float BaseCritter::CalculateSpeed(){
@@ -129,10 +135,6 @@ bool BaseCritter::IsColliding(CritterInterface &other){
 
 	return radius + otherRadius >= distance;
 }
-
-//BaseCritter BaseCritter::Clone(){
-//	return BaseCritter(*this);
-//}
 
 void BaseCritter::AttemptSurvive(){
 	// Called when colliding with another critter.
