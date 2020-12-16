@@ -5,13 +5,13 @@
 #ifndef CODE_V1_1_SHEEP_H
 #define CODE_V1_1_SHEEP_H
 #include "BehaviourInterface.h"
-#include "CritterInterface.h"
 
 // A sheep critter adjusts its direction to the average direction
 class Sheep : public BehaviourInterface {
 public:
-    float * NextMove(CritterInterface* critter, std::vector<std::shared_ptr<CritterInterface>> listcritters) override;
+    void NextMove(CritterInterface* critter, float direction[2], std::vector<std::shared_ptr<CritterInterface>> listcritters);
     int * GetColor();
+    BehaviourInterface* clone() override;
 
 private:
     int color[3] = {0,0,0};

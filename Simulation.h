@@ -12,7 +12,7 @@ static const float sheepPerc = 0;
 
 // For fearful critter. A fearful will go to the opposite direction if
 // the number of critters around it is bigger than this threshold
-static const int FEAR_THRESHOLD = 10;
+static const int FEAR_THRESHOLD = 1;
 
 // For careful critter.
 static const float WEIGHT_NUMBER_OF_CRITTERS = 0.4;
@@ -38,6 +38,13 @@ static const float minEarRadius = 30;
 static const float maxEarRadius = 50;
 static const float minEarCapacity = 0.3;
 static const float maxEarCapacity = 1.0;
+
+static const float minEyeDistance = 40;
+static const float maxEyeDistance = 70;
+static const float minEyeCapacity = 0.3;
+static const float maxEyeCapacity = 1.0;
+static const float minEyeAngle = 0.5;
+static const float maxEyeAngle = 1.2;
 
 // Aquarium dimensions
 static const int width = 1000;

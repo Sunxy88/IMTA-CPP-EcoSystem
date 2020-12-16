@@ -33,6 +33,7 @@ class CritterInterface{
 	    
  		virtual const float* GetPosition() const = 0;
 		virtual const float* GetDirection() const = 0;
+		virtual float* GetModifiableDir() = 0 ;
  		virtual const float* GetSize() const = 0;
  		virtual const int GetId() const = 0;
  		virtual const float GetBaseSpeed() const = 0;

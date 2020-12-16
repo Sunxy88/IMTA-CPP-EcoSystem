@@ -33,7 +33,6 @@ BaseCritter::BaseCritter(const BaseCritter &b) : behaviour(b.behaviour->clone())
 	memcpy(this->direction, b.GetDirection(), DIM * sizeof(float));
 	memcpy(this->size, b.GetSize(), DIM * sizeof(float));
 	this->lifespan = b.GetLifespan();
-	//this->behaviour = behaviour;
 	std::cout << behaviour->GetColor()[0] << std::endl;
 	this->isMultiBehaviour = b.GetMultiBehaviour();
 
@@ -76,14 +75,6 @@ void BaseCritter::ChangeBehaviour(BehaviourInterface* newBehaviour){
 }
 
 void BaseCritter::Move(Environment & env, float speed){
-	// Get direction from behaviour
-	//delete this->direction;
-	/*float* newDir = behaviour->NextMove(this, env.GetCritters());
-	if(newDir[0] != 0 || newDir[0] != 0){
-		this->direction[0] = newDir[0];
-		this->direction[1] = newDir[1];
-	}*/
-	
 
 	// Check Collision with environment
 	int xLim = env.getWidth();
@@ -174,6 +165,8 @@ const float* BaseCritter::GetPosition() const {return this->position; }
 
 const float* BaseCritter::GetDirection() const {return this->direction; }
 
+float* BaseCritter::GetModifiableDir() {return this->direction;}
+
 const float* BaseCritter::GetSize() const {return this->size; }
 
 const int BaseCritter::GetId() const {return this->id; }
@@ -184,7 +177,11 @@ const int BaseCritter::GetLifespan() const {return this->lifespan; }
 
 const int BaseCritter::GetCurrentAge() const {return this->age; }
 
+<<<<<<< HEAD
 BehaviourInterface* BaseCritter::GetBehaviour() {return this->behaviour; }
+=======
+BehaviourInterface* BaseCritter::GetBehaviour() {return this->behaviour;}
+>>>>>>> 4107fd477036fc90861f7d0e67ceca1a07f3d375
 
 const bool BaseCritter::GetMultiBehaviour() const {return this->isMultiBehaviour; }
 
@@ -192,17 +189,32 @@ void BaseCritter::setIsDying(bool dead){this->isDead = dead;}
 
 
 void BaseCritter::Draw(UImg & support){
+<<<<<<< HEAD
 
 	const float orientation = atan(this->direction[1] / this->direction[0]) * 180 / M_PI;
 	const float maxSize = std::max(this->size[0], this->size[1]);
+=======
+	//const float HEADRATIO = 2.1;
+
+	const float orientation = atan(this->direction[1] / this->direction[0]) * 180 / M_PI;
+	/*const float maxSize = std::max(this->size[0], this->size[1]);
+	const double xt = this->position[0] + direction[0]*maxSize/HEADRATIO;
+	const double yt = this->position[1] - direction[1]*maxSize/HEADRATIO;*/
+>>>>>>> 4107fd477036fc90861f7d0e67ceca1a07f3d375
     
 	
 	//std::cout << this->behaviour->GetColor()[0] << std::endl;
 	support.draw_ellipse(this->position[0], this->position[1], this->size[0], this->size[1], orientation, this->behaviour->GetColor());
+<<<<<<< HEAD
 	const float black[3] = {0, 0, 0};
 	support.draw_text(this->position[0], this->position[1], std::to_string(this->id).c_str(), black, 1);
 	const float norm = std::pow( std::pow(this->direction[0], 2) + std::pow(this->direction[1], 2), 0.5 ) * 0.5/maxSize;
 	support.draw_arrow(this->position[0], this->position[1], this->position[0] + this->direction[0] / norm, this->position[1] + this->direction[1] / norm, black);
+=======
+	int text_color[3] = {100,100,0};
+	support.draw_text(this->position[0], this->position[1], std::to_string(GetId()).c_str(), text_color, 1, 1.0, 22);
+	//support.draw_circle( xt, yt, maxSize/HEADRATIO, this->behaviour->GetColor());
+>>>>>>> 4107fd477036fc90861f7d0e67ceca1a07f3d375
 }
 
 void BaseCritter::MoveTowards(const float newDirection[DIM]){

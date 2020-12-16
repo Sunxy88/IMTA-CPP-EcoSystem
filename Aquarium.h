@@ -28,7 +28,7 @@ public :
    
    void Kill(int);
 
-   /*void SetBehavior(int, string const &str1);*/
+   void SetBehavior(int, string const &str1);
 
    Environment & getMilieu( void ) { return *flotte; }
 

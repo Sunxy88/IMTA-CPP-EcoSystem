@@ -1,6 +1,9 @@
 #include "Aquarium.h"
 
 #include "Environment.h"
+#include "Behaviour/Kamikaze.h"
+#include "Behaviour/Sheep.h"
+#include "Behaviour/Fearful.h"
 
 
 Aquarium::Aquarium( int width, int height, int _delay ) : CImgDisplay(), delay( _delay )
@@ -38,11 +41,19 @@ void Aquarium::Kill(int id)
    flotte->getCritterById(id)->setIsDying(true);
 }
 
-/*
-void Aquarium::SetBehavior(int id, string const &stratergy)
+
+void Aquarium::SetBehavior(int id, string const & strategy)
 {
-   flotte->GetCritterById->ChangeBehaviour(strategy);
-}*/
+   if(strategy.compare("kamikaze") == 0){
+         flotte->getCritterById(id)->ChangeBehaviour(new Kamikaze());
+   }
+   else if (strategy.compare("sheep") == 0){
+      flotte->getCritterById(id)->ChangeBehaviour(new Sheep());
+   }
+   else{
+      flotte->getCritterById(id)->ChangeBehaviour(new Fearful());
+   }
+}
 
 
 
@@ -72,15 +83,15 @@ void Aquarium::run( void )
          this->Kill(critter);
       }
 
-      //if (is_key(cimg::keyS)){
-      //   int critter;
-      //   String behavior;
-      //   cout << "De quelle créature voulez-vous modifier le comportement ?"<<endl;
-      //   cin>>critter;
-      //   cout << "Quel comportement voulez-vous lui attribuer ?"<<endl;
-      //   cin<<behavior;
-      //   this->setBehavior(critter,behavior);
-      //}
+      if (is_key(cimg::keyS)){
+         int critter;
+         std::string behavior;
+         cout << "De quelle créature voulez-vous modifier le comportement ?"<<endl;
+         cin >> critter;
+         cout << "Quel comportement voulez-vous lui attribuer ?"<<endl;
+         cin >> behavior;
+         SetBehavior(critter,behavior);
+      }
       
       flotte->UpdateCritters();
       flotte->Draw();

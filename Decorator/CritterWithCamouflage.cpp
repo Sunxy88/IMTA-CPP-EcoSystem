@@ -54,6 +54,8 @@ const float* CritterWithCamouflage::GetPosition() const {return this->component-
 
 const float* CritterWithCamouflage::GetDirection() const {return this->component->GetDirection(); }
 
+float* CritterWithCamouflage::GetModifiableDir() {return this->component->GetModifiableDir(); }
+
 const float* CritterWithCamouflage::GetSize() const {return this->component->GetSize(); }
 
 const int CritterWithCamouflage::GetId() const {return this->component->GetId(); }

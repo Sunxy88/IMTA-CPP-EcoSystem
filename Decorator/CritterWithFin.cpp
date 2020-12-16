@@ -56,6 +56,8 @@ const float* CritterWithFin::GetPosition() const {return this->component->GetPos
 
 const float* CritterWithFin::GetDirection() const {return this->component->GetDirection(); }
 
+float* CritterWithFin::GetModifiableDir() {return this->component->GetModifiableDir(); }
+
 const float* CritterWithFin::GetSize() const {return this->component->GetSize(); }
 
 const int CritterWithFin::GetId() const {return this->component->GetId(); }

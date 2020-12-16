@@ -12,7 +12,7 @@ class Fearful : public BehaviourInterface {
 public:
     Fearful();
     ~Fearful();
-    float* NextMove(CritterInterface* critter, std::vector<std::shared_ptr<CritterInterface>> listcritters) override;
+    void NextMove(CritterInterface *critter, float direction[2], std::vector<std::shared_ptr<CritterInterface>> listcritters) override;
     int * GetColor();
     BehaviourInterface* clone() override;
 

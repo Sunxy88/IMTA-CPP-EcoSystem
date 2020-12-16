@@ -35,9 +35,9 @@ void Environment::Draw()
    cimg_forXY( *this, x, y ) fillC( x, y, 0, white[0], white[1], white[2] );
    for ( std::vector<std::shared_ptr<CritterInterface>>::iterator it = listCritter.begin() ; it != listCritter.end() ; ++it )
    {
-
+      
       (*it)->Draw( *this );
-
+    
    } 
 
 }
@@ -49,6 +49,7 @@ void Environment::UpdateCritters()
    for ( std::vector<std::shared_ptr<CritterInterface>>::iterator it = listCritter.begin() ; it != listCritter.end() ; ++it )
    {
 
+      
       (*it)->Update(*this, (*it)->CalculateSpeed());
       // Check for collision
       for ( std::vector<std::shared_ptr<CritterInterface>>::iterator it2 = listCritter.begin() ; it2 != listCritter.end() ; ++it2 ){
@@ -61,6 +62,7 @@ void Environment::UpdateCritters()
                (*it2)->AttemptSurvive();
 
             }
+            
       }
 
    } 
@@ -73,10 +75,9 @@ void Environment::UpdateCritters()
 void Environment::AddCritter(){
 //    shared_ptr is employed here to simplify the management of memory and
 //    to void the leak of memory since critter is easily created and easily dies.
-    std::shared_ptr<CritterInterface> critter;
-    critter.reset(this->critterFactory->CreateBaseCritter());
-    listCritter.push_back(critter);
-    std::cout << listCritter.size() << std::endl;
+   std::shared_ptr<CritterInterface> critter;
+   critter.reset(this->critterFactory->CreateBaseCritter());
+   listCritter.push_back(critter);
 }
 
 void Environment::RemoveDeadCritters(){

@@ -6,12 +6,14 @@
 #include <iostream>
 #include "Behaviour/Kamikaze.h"
 #include "Behaviour/Fearful.h"
+#include "Behaviour/Sheep.h"
 #include "Decorator/CritterWithFin.h"
 #include "Decorator/CritterWithShell.h"
 #include "Decorator/CritterWithCamouflage.h"
 #include "Decorator/CritterAccessoryDecorator.h"
 #include "SensorDecorator/CritterSensorDecorator.h"
 #include "SensorDecorator/CritterWithEar.h"
+#include "SensorDecorator/CritterWithEye.h"
 
 int CritterFactory::count = 0;
 
@@ -42,10 +44,14 @@ CritterInterface* CritterFactory::CreateBaseCritter() const{
 
 	int id = count++;
 	BehaviourInterface* k;
-	if(AttemptThreshold(fearfulPerc)){
-		k = new Fearful();
-	}else{
+	float behaviour_rand = RandomBoundedFloat(0, 1);
+	std::cout << behaviour_rand << "  Behave" << std::endl;
+	if(behaviour_rand < 0.2){
 		k = new Kamikaze();
+	}else if (behaviour_rand < 0.5){
+		k = new Fearful();
+	}else {
+		k = new Sheep();
 	}
 
 	CritterInterface* b = new BaseCritter(id, speed, lifespan, position, direction, size, k);
@@ -66,6 +72,12 @@ CritterInterface* CritterFactory::CreateBaseCritter() const{
 		float radius = RandomBoundedFloat(minEarRadius, maxEarRadius);
 		float capacity = RandomBoundedFloat(minEarCapacity, maxEarCapacity);
 		b = new CritterWithEar(b, radius , capacity);
+	}
+	if(AttemptThreshold(eyeChance)){
+		float distance = RandomBoundedFloat(minEyeDistance, maxEyeDistance);
+		float eye_capacity = RandomBoundedFloat(minEyeCapacity, maxEyeCapacity);
+		float eye_angle = RandomBoundedFloat(minEyeAngle, maxEyeAngle);
+		b = new CritterWithEye(b, eye_angle, distance, eye_capacity);
 	}
 	
 	return b;
