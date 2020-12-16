@@ -77,4 +77,6 @@ void CritterWithShell::Draw(UImg & support){
 	this->component->Draw(support);
 }
 
-
+CritterInterface* CritterWithShell::clone(){
+	return new CritterWithShell(*this);
+}

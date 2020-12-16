@@ -177,4 +177,8 @@ void CritterWithEye::Draw(UImg & support){
 	this->critter->Draw(support);
 }
 
+CritterInterface* CritterWithEye::clone(){
+	return new CritterWithEye(*this);
+}
+
 

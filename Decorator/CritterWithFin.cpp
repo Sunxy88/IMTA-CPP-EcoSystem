@@ -79,4 +79,7 @@ void CritterWithFin::Draw(UImg & support){
 	this->component->Draw(support);
 }
 
+CritterInterface* CritterWithFin::clone(){
+	return new CritterWithFin(*this);
+}
 

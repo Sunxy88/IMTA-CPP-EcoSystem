@@ -139,3 +139,8 @@ void CritterWithEar::Draw(UImg & support){
 	this->critter->Draw(support);
 }
 
+CritterInterface* CritterWithEar::clone(){
+	return new CritterWithEar(*this);
+}
+
+
