@@ -13,7 +13,7 @@ public:
     Fearful();
     ~Fearful();
     void NextMove(CritterInterface *critter, std::vector<std::shared_ptr<CritterInterface>> listcritters) override;
-    int * GetColor();
+    int * GetColor() override;
     BehaviourInterface* clone() override;
 
 private:

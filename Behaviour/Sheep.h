@@ -11,8 +11,8 @@ class Sheep : public BehaviourInterface {
 public:
     Sheep();
     ~Sheep();
-    void NextMove(CritterInterface* critter, std::vector<std::shared_ptr<CritterInterface>> listcritters);
-    int * GetColor();
+    void NextMove(CritterInterface* critter, std::vector<std::shared_ptr<CritterInterface>> listcritters) override;
+    int * GetColor() override;
     BehaviourInterface* clone() override;
 
 private:
