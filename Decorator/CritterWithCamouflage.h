@@ -32,5 +32,6 @@ public:
     const bool GetMultiBehaviour() const override;
 
     void Draw(UImg & support) override;
+    CritterInterface* clone() override;
 
 };

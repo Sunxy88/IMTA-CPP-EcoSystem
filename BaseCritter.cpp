@@ -203,3 +203,7 @@ void BaseCritter::MoveTowards(const float newDirection[DIM]){
 		this->position[i] = newDirection[i];
 	}
 }
+
+CritterInterface* BaseCritter::clone(){
+	return new BaseCritter(*this);
+}

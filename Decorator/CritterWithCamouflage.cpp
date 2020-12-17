@@ -77,3 +77,6 @@ void CritterWithCamouflage::Draw(UImg & support){
 	this->component->Draw(support);
 }
 
+CritterInterface* CritterWithCamouflage::clone(){
+	return new CritterWithCamouflage(*this);
+}

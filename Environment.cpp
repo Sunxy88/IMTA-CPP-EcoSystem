@@ -46,9 +46,23 @@ void Environment::Draw()
 void Environment::UpdateCritters()
 {
 
+   // New Critters Spawning
+<<<<<<< HEAD
+   /*float r = ((float) std::rand()) / (float) RAND_MAX;
+   if(r > spawnRate){
+=======
+   float r = ((float) std::rand()) / (float) RAND_MAX;
+   if(r < spawnRate){
+>>>>>>> f2c883eea8c364452fc365110251ee3d7a36a081
+      std::cout << "a new Critter spawned  " << std::endl;
+      AddCritter();
+   }*/
    for ( std::vector<std::shared_ptr<CritterInterface>>::iterator it = listCritter.begin() ; it != listCritter.end() ; ++it )
    {
-
+      /*if(std::rand() < spawnRate){
+         std::cout << "Cloning :" << (*it)->GetId() << std::endl;
+         AddCritter((*it)->clone());
+      }*/
       
       (*it)->Update(*this, (*it)->CalculateSpeed());
       // Check for collision
@@ -73,10 +87,14 @@ void Environment::UpdateCritters()
 
 
 void Environment::AddCritter(){
+   AddCritter(this->critterFactory->CreateBaseCritter());
+}
+
+void Environment::AddCritter(CritterInterface* crit){
 //    shared_ptr is employed here to simplify the management of memory and
 //    to void the leak of memory since critter is easily created and easily dies.
    std::shared_ptr<CritterInterface> critter;
-   critter.reset(this->critterFactory->CreateBaseCritter());
+   critter.reset(crit);
    listCritter.push_back(critter);
 }
 
